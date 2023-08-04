@@ -318,6 +318,16 @@
       },
       "title": "Ports: represents Security Group Rule access source-dest ports"
     },
+    "SecGroupDefaultAction": {
+      "type": "string",
+      "enum": [
+        "DROP",
+        "ACCEPT"
+      ],
+      "default": "DROP",
+      "description": "- DROP: Drops net packet\n - ACCEPT: Accepts net packet",
+      "title": "DefaultAction: represents default action at end of chains for Security Gpoup"
+    },
     "SyncReqSyncOp": {
       "type": "string",
       "enum": [
@@ -483,6 +493,10 @@
             "$ref": "#/definitions/RulePorts"
           },
           "title": "access ports set"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
         }
       },
       "title": "Rule: represents Security Groups Rule",
@@ -518,6 +532,18 @@
             "type": "string"
           },
           "title": "related to security gpoup network(s)"
+        },
+        "defaultAction": {
+          "$ref": "#/definitions/SecGroupDefaultAction",
+          "title": "default_action: represents default rula action"
+        },
+        "trace": {
+          "type": "boolean",
+          "title": "trace: set or unset 'nftrace' flag"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in chain"
         }
       },
       "title": "SecGroup: represents a security group",

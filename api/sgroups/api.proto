@@ -37,6 +37,8 @@ message Network {
   common.Networks.NetIP network = 2;
 }
 
+
+
 //SecGroup: represents a security group
 message SecGroup {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -44,10 +46,24 @@ message SecGroup {
       required: ["name"]
     }    
   };
+  //DefaultAction: represents default action at end of chains for Security Gpoup
+  enum DefaultAction {     
+     //Drops net packet
+     DROP = 0;
+
+     //Accepts net packet
+     ACCEPT = 1;
+  }
   //name of security group
   string name = 1;
   //related to security gpoup network(s)
   repeated string networks = 2;
+  //default_action: represents default rula action
+  DefaultAction default_action = 3;
+  //trace: set or unset 'nftrace' flag
+  bool trace = 4; 
+  //logs: switch-{ON|OFF} logs in chain
+  bool logs = 5;
 }
 
 //Rule: represents Security Groups Rule
@@ -72,6 +88,8 @@ message Rule {
    common.Networks.NetIP.Transport transport = 3;   
    //access ports set
    repeated Ports ports = 4;
+   //logs: switch-{ON|OFF} logs in rules
+   bool logs = 5;
 }
 
 //SyncStatusResp: db status after last succeeded Sync
