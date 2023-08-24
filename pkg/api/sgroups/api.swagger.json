@@ -24,6 +24,39 @@
     "application/json"
   ],
   "paths": {
+    "/v1/fdqn/rules": {
+      "post": {
+        "description": "FindFdqnRules: finds FDQN Rule(s) scoped by variety SG 'from'",
+        "operationId": "SecGroupService_FindFdqnRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sgroupsFdqnRulesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sgroupsFindFdqnRulesReq"
+            }
+          }
+        ],
+        "tags": [
+          "SecGroupService"
+        ]
+      }
+    },
     "/v1/list/networks": {
       "post": {
         "description": "ListNetworks: shows list of Network",
@@ -304,28 +337,15 @@
       },
       "title": "NetIP: represents IP-Network type (L3)"
     },
-    "RulePorts": {
-      "type": "object",
-      "properties": {
-        "s": {
-          "type": "string",
-          "title": "source port \"num\" or port range \"num1-num2\""
-        },
-        "d": {
-          "type": "string",
-          "title": "destination  port \"num\" or port range \"num1-num2\""
-        }
-      },
-      "title": "Ports: represents Security Group Rule access source-dest ports"
-    },
     "SecGroupDefaultAction": {
       "type": "string",
       "enum": [
+        "DEFAULT",
         "DROP",
         "ACCEPT"
       ],
-      "default": "DROP",
-      "description": "- DROP: Drops net packet\n - ACCEPT: Accepts net packet",
+      "default": "DEFAULT",
+      "description": "- DEFAULT: Default is default action in [DROP|ACCEPT]\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
       "title": "DefaultAction: represents default action at end of chains for Security Gpoup"
     },
     "SyncReqSyncOp": {
@@ -365,6 +385,83 @@
           }
         }
       }
+    },
+    "sgroupsAccPorts": {
+      "type": "object",
+      "properties": {
+        "s": {
+          "type": "string",
+          "title": "source port \"num\" or port range \"num1-num2\""
+        },
+        "d": {
+          "type": "string",
+          "title": "destination  port \"num\" or port range \"num1-num2\""
+        }
+      },
+      "title": "AccPorts: represents Security Group Rule access source-dest ports"
+    },
+    "sgroupsFdqnRule": {
+      "type": "object",
+      "properties": {
+        "sgFrom": {
+          "type": "string",
+          "title": "security group at client"
+        },
+        "FDQN": {
+          "type": "string",
+          "title": "FDQN is some to be matched ny query in DSN"
+        },
+        "transport": {
+          "$ref": "#/definitions/NetIPTransport",
+          "title": "ip net transport"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsAccPorts"
+          },
+          "title": "access ports set"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
+        }
+      },
+      "title": "FdqnRule: represents Security Groups Rule",
+      "required": [
+        "sgFrom",
+        "FDQN",
+        "transport"
+      ]
+    },
+    "sgroupsFdqnRulesResp": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsFdqnRule"
+          },
+          "title": "FDQN rule(s) items"
+        }
+      },
+      "title": "FdqnRulesResp: FDQN Rule(s) resp"
+    },
+    "sgroupsFindFdqnRulesReq": {
+      "type": "object",
+      "properties": {
+        "sgFrom": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope GS name 'from' items"
+        }
+      },
+      "title": "FindFdqnRulesReq: req to find all FDQN Rule(s) scoped by variety 'from' SG(s)",
+      "required": [
+        "sgFrom"
+      ]
     },
     "sgroupsFindRulesReq": {
       "type": "object",
@@ -490,7 +587,7 @@
         "ports": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/RulePorts"
+            "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "access ports set"
         },
@@ -551,6 +648,19 @@
         "name"
       ]
     },
+    "sgroupsSyncFdqnRules": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsFdqnRule"
+          },
+          "title": "fdqn rules items"
+        }
+      },
+      "title": "SyncFdqnRules: subject of Security Group Rules to Sync"
+    },
     "sgroupsSyncNetworks": {
       "type": "object",
       "properties": {
@@ -582,6 +692,10 @@
         "networks": {
           "$ref": "#/definitions/sgroupsSyncNetworks",
           "title": "subject of Network(s)"
+        },
+        "fdqnRules": {
+          "$ref": "#/definitions/sgroupsSyncFdqnRules",
+          "title": "subject of FDQN Rule(s)"
         }
       },
       "title": "SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]"

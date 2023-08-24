@@ -47,12 +47,15 @@ message SecGroup {
     }    
   };
   //DefaultAction: represents default action at end of chains for Security Gpoup
-  enum DefaultAction {     
+  enum DefaultAction {  
+     //Default is default action in [DROP|ACCEPT]
+     DEFAULT = 0;
+
      //Drops net packet
-     DROP = 0;
+     DROP = 1;
 
      //Accepts net packet
-     ACCEPT = 1;
+     ACCEPT = 2;
   }
   //name of security group
   string name = 1;
@@ -66,20 +69,21 @@ message SecGroup {
   bool logs = 5;
 }
 
+//AccPorts: represents Security Group Rule access source-dest ports
+message AccPorts {
+  //source port "num" or port range "num1-num2"
+  string s = 1;
+  //destination  port "num" or port range "num1-num2"
+  string d = 2;
+}
+
 //Rule: represents Security Groups Rule
 message Rule {   
    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
       json_schema: {      
         required: ["sg_from", "sg_to", "transport"]
       }    
-   };
-   //Ports: represents Security Group Rule access source-dest ports
-   message Ports {
-      //source port "num" or port range "num1-num2"
-      string s = 1;
-      //destination  port "num" or port range "num1-num2"
-      string d = 2;
-   }
+   };   
    //security group at client
    string sg_from = 1;
    //security group at server
@@ -87,9 +91,28 @@ message Rule {
    //ip net transport
    common.Networks.NetIP.Transport transport = 3;   
    //access ports set
-   repeated Ports ports = 4;
+   repeated AccPorts ports = 4;
    //logs: switch-{ON|OFF} logs in rules
    bool logs = 5;
+}
+
+//FdqnRule: represents Security Groups Rule
+message FdqnRule {   
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+     json_schema: {      
+       required: ["sg_from", "FDQN", "transport"]
+     }    
+  };   
+  //security group at client
+  string sg_from = 1;
+  //FDQN is some to be matched ny query in DSN
+  string FDQN = 2;
+  //ip net transport
+  common.Networks.NetIP.Transport transport = 3;   
+  //access ports set
+  repeated AccPorts ports = 4;
+  //logs: switch-{ON|OFF} logs in rules
+  bool logs = 5;
 }
 
 //SyncStatusResp: db status after last succeeded Sync
@@ -102,6 +125,12 @@ message SyncStatusResp {
 message SyncSGRules{
   //security group rules items
   repeated Rule rules = 1;
+}
+
+//SyncFdqnRules: subject of Security Group Rules to Sync
+message SyncFdqnRules{
+  //fdqn rules items
+  repeated FdqnRule rules = 1;
 }
 
 //SyncSecurityGroups: subject of Security Groups to Sync
@@ -161,6 +190,8 @@ message SyncReq {
       SyncSecurityGroups groups = 3;
       //subject of Network(s)
       SyncNetworks networks = 4;
+      //subject of FDQN Rule(s)
+      SyncFdqnRules fdqn_rules = 5;
   }
 }
 
@@ -211,6 +242,23 @@ message FindRulesReq {
 message RulesResp {
   //SG rule(s) items
   repeated Rule rules = 1;
+}
+
+//FindFdqnRulesReq: req to find all FDQN Rule(s) scoped by variety 'from' SG(s)
+message FindFdqnRulesReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {      
+      required: ["sg_from"]
+    }    
+  };
+  //scope GS name 'from' items
+  repeated string sg_from = 1;  
+}
+
+//FdqnRulesResp: FDQN Rule(s) resp
+message FdqnRulesResp {
+  //FDQN rule(s) items
+  repeated FdqnRule rules = 1;
 }
 
 //GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
@@ -295,13 +343,23 @@ service SecGroupService {
         description: "FindRules: finds SG(s) Rule(s) scoped by variety pairs 'from'->'to'";       
      };
    };
+
+   rpc FindFdqnRules(FindFdqnRulesReq) returns (FdqnRulesResp) {
+     option (google.api.http) = {
+        post: "/v1/fdqn/rules"
+        body: "*"
+     };
+     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        description: "FindFdqnRules: finds FDQN Rule(s) scoped by variety SG 'from'";       
+     };
+  };
    
-   rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
+  rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
      option (google.api.http) = {
        get: "/v1/{address}/sg"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "GetSecGroupForAddress: gets Security Group by IP or CIDR";       
      };
-   };
+  };
 }
