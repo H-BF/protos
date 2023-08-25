@@ -24,15 +24,15 @@
     "application/json"
   ],
   "paths": {
-    "/v1/fdqn/rules": {
+    "/v1/fqdn/rules": {
       "post": {
-        "description": "FindFdqnRules: finds FDQN Rule(s) scoped by variety SG 'from'",
-        "operationId": "SecGroupService_FindFdqnRules",
+        "description": "FindFqgnRules: finds FQDN Rule(s) scoped by variety SG 'from'",
+        "operationId": "SecGroupService_FindFqdnRules",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/sgroupsFdqnRulesResp"
+              "$ref": "#/definitions/sgroupsFqdnRulesResp"
             }
           },
           "default": {
@@ -48,7 +48,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/sgroupsFindFdqnRulesReq"
+              "$ref": "#/definitions/sgroupsFindFqdnRulesReq"
             }
           }
         ],
@@ -400,54 +400,7 @@
       },
       "title": "AccPorts: represents Security Group Rule access source-dest ports"
     },
-    "sgroupsFdqnRule": {
-      "type": "object",
-      "properties": {
-        "sgFrom": {
-          "type": "string",
-          "title": "security group at client"
-        },
-        "FDQN": {
-          "type": "string",
-          "title": "FDQN is some to be matched ny query in DSN"
-        },
-        "transport": {
-          "$ref": "#/definitions/NetIPTransport",
-          "title": "ip net transport"
-        },
-        "ports": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/sgroupsAccPorts"
-          },
-          "title": "access ports set"
-        },
-        "logs": {
-          "type": "boolean",
-          "title": "logs: switch-{ON|OFF} logs in rules"
-        }
-      },
-      "title": "FdqnRule: represents Security Groups Rule",
-      "required": [
-        "sgFrom",
-        "FDQN",
-        "transport"
-      ]
-    },
-    "sgroupsFdqnRulesResp": {
-      "type": "object",
-      "properties": {
-        "rules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/sgroupsFdqnRule"
-          },
-          "title": "FDQN rule(s) items"
-        }
-      },
-      "title": "FdqnRulesResp: FDQN Rule(s) resp"
-    },
-    "sgroupsFindFdqnRulesReq": {
+    "sgroupsFindFqdnRulesReq": {
       "type": "object",
       "properties": {
         "sgFrom": {
@@ -458,7 +411,7 @@
           "title": "scope GS name 'from' items"
         }
       },
-      "title": "FindFdqnRulesReq: req to find all FDQN Rule(s) scoped by variety 'from' SG(s)",
+      "title": "FindFqdnRulesReq: req to find all FQDN Rule(s) scoped by variety 'from' SG(s)",
       "required": [
         "sgFrom"
       ]
@@ -486,6 +439,53 @@
         "sgFrom",
         "sgTo"
       ]
+    },
+    "sgroupsFqdnRule": {
+      "type": "object",
+      "properties": {
+        "sgFrom": {
+          "type": "string",
+          "title": "security group at client"
+        },
+        "FQDN": {
+          "type": "string",
+          "title": "FQDN full qualified domain name portable for DNS queries"
+        },
+        "transport": {
+          "$ref": "#/definitions/NetIPTransport",
+          "title": "ip net transport"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsAccPorts"
+          },
+          "title": "access ports set"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
+        }
+      },
+      "title": "FqdnRule: represents Security Groups Rule",
+      "required": [
+        "sgFrom",
+        "FQDN",
+        "transport"
+      ]
+    },
+    "sgroupsFqdnRulesResp": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsFqdnRule"
+          },
+          "title": "FQDN rule(s) items"
+        }
+      },
+      "title": "FqdnRulesResp: FQDN Rule(s) resp"
     },
     "sgroupsGetSgSubnetsResp": {
       "type": "object",
@@ -648,18 +648,18 @@
         "name"
       ]
     },
-    "sgroupsSyncFdqnRules": {
+    "sgroupsSyncFqdnRules": {
       "type": "object",
       "properties": {
         "rules": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/sgroupsFdqnRule"
+            "$ref": "#/definitions/sgroupsFqdnRule"
           },
-          "title": "fdqn rules items"
+          "title": "fqdn rules items"
         }
       },
-      "title": "SyncFdqnRules: subject of Security Group Rules to Sync"
+      "title": "SyncFqdnRules: subject of Security Group Rules to Sync"
     },
     "sgroupsSyncNetworks": {
       "type": "object",
@@ -693,9 +693,9 @@
           "$ref": "#/definitions/sgroupsSyncNetworks",
           "title": "subject of Network(s)"
         },
-        "fdqnRules": {
-          "$ref": "#/definitions/sgroupsSyncFdqnRules",
-          "title": "subject of FDQN Rule(s)"
+        "fqdnRules": {
+          "$ref": "#/definitions/sgroupsSyncFqdnRules",
+          "title": "subject of FQDN Rule(s)"
         }
       },
       "title": "SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]"

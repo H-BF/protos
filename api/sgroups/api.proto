@@ -96,17 +96,17 @@ message Rule {
    bool logs = 5;
 }
 
-//FdqnRule: represents Security Groups Rule
-message FdqnRule {   
+//FqdnRule: represents Security Groups Rule
+message FqdnRule {   
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
      json_schema: {      
-       required: ["sg_from", "FDQN", "transport"]
+       required: ["sg_from", "FQDN", "transport"]
      }    
   };   
   //security group at client
   string sg_from = 1;
-  //FDQN is some to be matched ny query in DSN
-  string FDQN = 2;
+  //FQDN full qualified domain name portable for DNS queries 
+  string FQDN = 2;
   //ip net transport
   common.Networks.NetIP.Transport transport = 3;   
   //access ports set
@@ -127,10 +127,10 @@ message SyncSGRules{
   repeated Rule rules = 1;
 }
 
-//SyncFdqnRules: subject of Security Group Rules to Sync
-message SyncFdqnRules{
-  //fdqn rules items
-  repeated FdqnRule rules = 1;
+//SyncFqdnRules: subject of Security Group Rules to Sync
+message SyncFqdnRules{
+  //fqdn rules items
+  repeated FqdnRule rules = 1;
 }
 
 //SyncSecurityGroups: subject of Security Groups to Sync
@@ -190,8 +190,8 @@ message SyncReq {
       SyncSecurityGroups groups = 3;
       //subject of Network(s)
       SyncNetworks networks = 4;
-      //subject of FDQN Rule(s)
-      SyncFdqnRules fdqn_rules = 5;
+      //subject of FQDN Rule(s)
+      SyncFqdnRules fqdn_rules = 5;
   }
 }
 
@@ -244,8 +244,8 @@ message RulesResp {
   repeated Rule rules = 1;
 }
 
-//FindFdqnRulesReq: req to find all FDQN Rule(s) scoped by variety 'from' SG(s)
-message FindFdqnRulesReq {
+//FindFqdnRulesReq: req to find all FQDN Rule(s) scoped by variety 'from' SG(s)
+message FindFqdnRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
       required: ["sg_from"]
@@ -255,10 +255,10 @@ message FindFdqnRulesReq {
   repeated string sg_from = 1;  
 }
 
-//FdqnRulesResp: FDQN Rule(s) resp
-message FdqnRulesResp {
-  //FDQN rule(s) items
-  repeated FdqnRule rules = 1;
+//FqdnRulesResp: FQDN Rule(s) resp
+message FqdnRulesResp {
+  //FQDN rule(s) items
+  repeated FqdnRule rules = 1;
 }
 
 //GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
@@ -344,13 +344,13 @@ service SecGroupService {
      };
    };
 
-   rpc FindFdqnRules(FindFdqnRulesReq) returns (FdqnRulesResp) {
+   rpc FindFqdnRules(FindFqdnRulesReq) returns (FqdnRulesResp) {
      option (google.api.http) = {
-        post: "/v1/fdqn/rules"
+        post: "/v1/fqdn/rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        description: "FindFdqnRules: finds FDQN Rule(s) scoped by variety SG 'from'";       
+        description: "FindFqgnRules: finds FQDN Rule(s) scoped by variety SG 'from'";       
      };
   };
    

@@ -30,7 +30,7 @@ type SecGroupServiceClient interface {
 	GetSgSubnets(ctx context.Context, in *GetSgSubnetsReq, opts ...grpc.CallOption) (*GetSgSubnetsResp, error)
 	GetRules(ctx context.Context, in *GetRulesReq, opts ...grpc.CallOption) (*RulesResp, error)
 	FindRules(ctx context.Context, in *FindRulesReq, opts ...grpc.CallOption) (*RulesResp, error)
-	FindFdqnRules(ctx context.Context, in *FindFdqnRulesReq, opts ...grpc.CallOption) (*FdqnRulesResp, error)
+	FindFqdnRules(ctx context.Context, in *FindFqdnRulesReq, opts ...grpc.CallOption) (*FqdnRulesResp, error)
 	GetSecGroupForAddress(ctx context.Context, in *GetSecGroupForAddressReq, opts ...grpc.CallOption) (*SecGroup, error)
 }
 
@@ -105,9 +105,9 @@ func (c *secGroupServiceClient) FindRules(ctx context.Context, in *FindRulesReq,
 	return out, nil
 }
 
-func (c *secGroupServiceClient) FindFdqnRules(ctx context.Context, in *FindFdqnRulesReq, opts ...grpc.CallOption) (*FdqnRulesResp, error) {
-	out := new(FdqnRulesResp)
-	err := c.cc.Invoke(ctx, "/hbf.v1.sgroups.SecGroupService/FindFdqnRules", in, out, opts...)
+func (c *secGroupServiceClient) FindFqdnRules(ctx context.Context, in *FindFqdnRulesReq, opts ...grpc.CallOption) (*FqdnRulesResp, error) {
+	out := new(FqdnRulesResp)
+	err := c.cc.Invoke(ctx, "/hbf.v1.sgroups.SecGroupService/FindFqdnRules", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ type SecGroupServiceServer interface {
 	GetSgSubnets(context.Context, *GetSgSubnetsReq) (*GetSgSubnetsResp, error)
 	GetRules(context.Context, *GetRulesReq) (*RulesResp, error)
 	FindRules(context.Context, *FindRulesReq) (*RulesResp, error)
-	FindFdqnRules(context.Context, *FindFdqnRulesReq) (*FdqnRulesResp, error)
+	FindFqdnRules(context.Context, *FindFqdnRulesReq) (*FqdnRulesResp, error)
 	GetSecGroupForAddress(context.Context, *GetSecGroupForAddressReq) (*SecGroup, error)
 	mustEmbedUnimplementedSecGroupServiceServer()
 }
@@ -164,8 +164,8 @@ func (UnimplementedSecGroupServiceServer) GetRules(context.Context, *GetRulesReq
 func (UnimplementedSecGroupServiceServer) FindRules(context.Context, *FindRulesReq) (*RulesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindRules not implemented")
 }
-func (UnimplementedSecGroupServiceServer) FindFdqnRules(context.Context, *FindFdqnRulesReq) (*FdqnRulesResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindFdqnRules not implemented")
+func (UnimplementedSecGroupServiceServer) FindFqdnRules(context.Context, *FindFqdnRulesReq) (*FqdnRulesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindFqdnRules not implemented")
 }
 func (UnimplementedSecGroupServiceServer) GetSecGroupForAddress(context.Context, *GetSecGroupForAddressReq) (*SecGroup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSecGroupForAddress not implemented")
@@ -309,20 +309,20 @@ func _SecGroupService_FindRules_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SecGroupService_FindFdqnRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindFdqnRulesReq)
+func _SecGroupService_FindFqdnRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindFqdnRulesReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SecGroupServiceServer).FindFdqnRules(ctx, in)
+		return srv.(SecGroupServiceServer).FindFqdnRules(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hbf.v1.sgroups.SecGroupService/FindFdqnRules",
+		FullMethod: "/hbf.v1.sgroups.SecGroupService/FindFqdnRules",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SecGroupServiceServer).FindFdqnRules(ctx, req.(*FindFdqnRulesReq))
+		return srv.(SecGroupServiceServer).FindFqdnRules(ctx, req.(*FindFqdnRulesReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -381,8 +381,8 @@ var SecGroupService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SecGroupService_FindRules_Handler,
 		},
 		{
-			MethodName: "FindFdqnRules",
-			Handler:    _SecGroupService_FindFdqnRules_Handler,
+			MethodName: "FindFqdnRules",
+			Handler:    _SecGroupService_FindFqdnRules_Handler,
 		},
 		{
 			MethodName: "GetSecGroupForAddress",
