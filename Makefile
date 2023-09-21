@@ -79,6 +79,7 @@ generate-api:
 			protoc \
 				-I $(CURDIR)/vendor/github.com/grpc-ecosystem/grpc-gateway/v2/ \
 				-I $(CURDIR)/3d-party \
+				-I /usr/include \
 				-I /usr/local/include \
 				--go_opt=paths=source_relative \
 				--go-grpc_opt=paths=source_relative \

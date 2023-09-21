@@ -247,6 +247,15 @@ service SecGroupService {
         description: "SyncStatus: gets last succeeded update DB status";       
      };
    }
+
+   rpc SyncStatuses(google.protobuf.Empty) returns(stream SyncStatusResp){
+     option (google.api.http) = {
+        get: "/v1/sync/statuses"
+     };
+     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        description: "SyncStatuses: gets stream of succeeded updates in DB";
+     };
+   }
    
    rpc ListNetworks(ListNetworksReq) returns (ListNetworksResp) {
      option (google.api.http) = {

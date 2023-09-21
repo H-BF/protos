@@ -84,6 +84,23 @@ func local_request_SecGroupService_SyncStatus_0(ctx context.Context, marshaler r
 
 }
 
+func request_SecGroupService_SyncStatuses_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (SecGroupService_SyncStatusesClient, runtime.ServerMetadata, error) {
+	var protoReq emptypb.Empty
+	var metadata runtime.ServerMetadata
+
+	stream, err := client.SyncStatuses(ctx, &protoReq)
+	if err != nil {
+		return nil, metadata, err
+	}
+	header, err := stream.Header()
+	if err != nil {
+		return nil, metadata, err
+	}
+	metadata.HeaderMD = header
+	return stream, metadata, nil
+
+}
+
 func request_SecGroupService_ListNetworks_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListNetworksReq
 	var metadata runtime.ServerMetadata
@@ -418,6 +435,13 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 
 	})
 
+	mux.Handle("GET", pattern_SecGroupService_SyncStatuses_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
+		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+		return
+	})
+
 	mux.Handle("POST", pattern_SecGroupService_ListNetworks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -653,6 +677,28 @@ func RegisterSecGroupServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 
 	})
 
+	mux.Handle("GET", pattern_SecGroupService_SyncStatuses_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v1.sgroups.SecGroupService/SyncStatuses", runtime.WithHTTPPathPattern("/v1/sync/statuses"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_SecGroupService_SyncStatuses_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_SecGroupService_SyncStatuses_0(annotatedContext, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_SecGroupService_ListNetworks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -793,6 +839,8 @@ var (
 
 	pattern_SecGroupService_SyncStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "sync", "status"}, ""))
 
+	pattern_SecGroupService_SyncStatuses_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "sync", "statuses"}, ""))
+
 	pattern_SecGroupService_ListNetworks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "list", "networks"}, ""))
 
 	pattern_SecGroupService_ListSecurityGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "list", "security-groups"}, ""))
@@ -810,6 +858,8 @@ var (
 	forward_SecGroupService_Sync_0 = runtime.ForwardResponseMessage
 
 	forward_SecGroupService_SyncStatus_0 = runtime.ForwardResponseMessage
+
+	forward_SecGroupService_SyncStatuses_0 = runtime.ForwardResponseStream
 
 	forward_SecGroupService_ListNetworks_0 = runtime.ForwardResponseMessage
 
