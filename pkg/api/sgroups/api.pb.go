@@ -25,13 +25,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// DefaultAction: represents default action at end of chains for Security Gpoup
+//DefaultAction: represents default action at end of chains for Security Gpoup
 type SecGroup_DefaultAction int32
 
 const (
-	// Drops net packet
+	//Drops net packet
 	SecGroup_DROP SecGroup_DefaultAction = 0
-	// Accepts net packet
+	//Accepts net packet
 	SecGroup_ACCEPT SecGroup_DefaultAction = 1
 )
 
@@ -74,15 +74,15 @@ func (SecGroup_DefaultAction) EnumDescriptor() ([]byte, []int) {
 	return file_sgroups_api_proto_rawDescGZIP(), []int{1, 0}
 }
 
-// SyncOp: sync operation
+//SyncOp: sync operation
 type SyncReq_SyncOp int32
 
 const (
-	// FullSync: Delete+Insert+Update operations (default)
+	//FullSync: Delete+Insert+Update operations (default)
 	SyncReq_FullSync SyncReq_SyncOp = 0
-	// Upsert: Insert+Update operations
+	//Upsert: Insert+Update operations
 	SyncReq_Upsert SyncReq_SyncOp = 1
-	// Delete: Delete operation
+	//Delete: Delete operation
 	SyncReq_Delete SyncReq_SyncOp = 2
 )
 
@@ -127,15 +127,15 @@ func (SyncReq_SyncOp) EnumDescriptor() ([]byte, []int) {
 	return file_sgroups_api_proto_rawDescGZIP(), []int{11, 0}
 }
 
-// Network: represents a named IP network
+//Network: represents a named IP network
 type Network struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// the name of network
+	//the name of network
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// network in CIDR form
+	//network in CIDR form
 	Network *common.Networks_NetIP `protobuf:"bytes,2,opt,name=network,proto3" json:"network,omitempty"`
 }
 
@@ -185,21 +185,21 @@ func (x *Network) GetNetwork() *common.Networks_NetIP {
 	return nil
 }
 
-// SecGroup: represents a security group
+//SecGroup: represents a security group
 type SecGroup struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// name of security group
+	//name of security group
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// related to security gpoup network(s)
+	//related to security gpoup network(s)
 	Networks []string `protobuf:"bytes,2,rep,name=networks,proto3" json:"networks,omitempty"`
-	// default_action: represents default rula action
+	//default_action: represents default rula action
 	DefaultAction SecGroup_DefaultAction `protobuf:"varint,3,opt,name=default_action,json=defaultAction,proto3,enum=hbf.v1.sgroups.SecGroup_DefaultAction" json:"default_action,omitempty"`
-	// trace: set or unset 'nftrace' flag
+	//trace: set or unset 'nftrace' flag
 	Trace bool `protobuf:"varint,4,opt,name=trace,proto3" json:"trace,omitempty"`
-	// logs: switch-{ON|OFF} logs in chain
+	//logs: switch-{ON|OFF} logs in chain
 	Logs bool `protobuf:"varint,5,opt,name=logs,proto3" json:"logs,omitempty"`
 }
 
@@ -270,21 +270,21 @@ func (x *SecGroup) GetLogs() bool {
 	return false
 }
 
-// Rule: represents Security Groups Rule
+//Rule: represents Security Groups Rule
 type Rule struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// security group at client
+	//security group at client
 	SgFrom string `protobuf:"bytes,1,opt,name=sg_from,json=sgFrom,proto3" json:"sg_from,omitempty"`
-	// security group at server
+	//security group at server
 	SgTo string `protobuf:"bytes,2,opt,name=sg_to,json=sgTo,proto3" json:"sg_to,omitempty"`
-	// ip net transport
+	//ip net transport
 	Transport common.Networks_NetIP_Transport `protobuf:"varint,3,opt,name=transport,proto3,enum=common.Networks_NetIP_Transport" json:"transport,omitempty"`
-	// access ports set
+	//access ports set
 	Ports []*Rule_Ports `protobuf:"bytes,4,rep,name=ports,proto3" json:"ports,omitempty"`
-	// logs: switch-{ON|OFF} logs in rules
+	//logs: switch-{ON|OFF} logs in rules
 	Logs bool `protobuf:"varint,5,opt,name=logs,proto3" json:"logs,omitempty"`
 }
 
@@ -355,13 +355,13 @@ func (x *Rule) GetLogs() bool {
 	return false
 }
 
-// SyncStatusResp: db status after last succeeded Sync
+//SyncStatusResp: db status after last succeeded Sync
 type SyncStatusResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// last succeeded updated DB timestamp
+	//last succeeded updated DB timestamp
 	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 }
 
@@ -404,13 +404,13 @@ func (x *SyncStatusResp) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-// SyncSGRules: subject of Security Group Rules to Sync
+//SyncSGRules: subject of Security Group Rules to Sync
 type SyncSGRules struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// security group rules items
+	//security group rules items
 	Rules []*Rule `protobuf:"bytes,1,rep,name=rules,proto3" json:"rules,omitempty"`
 }
 
@@ -453,13 +453,13 @@ func (x *SyncSGRules) GetRules() []*Rule {
 	return nil
 }
 
-// SyncSecurityGroups: subject of Security Groups to Sync
+//SyncSecurityGroups: subject of Security Groups to Sync
 type SyncSecurityGroups struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// security group items
+	//security group items
 	Groups []*SecGroup `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
 }
 
@@ -502,13 +502,13 @@ func (x *SyncSecurityGroups) GetGroups() []*SecGroup {
 	return nil
 }
 
-// SyncNetworks: subject of Networks to Sync
+//SyncNetworks: subject of Networks to Sync
 type SyncNetworks struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// network items
+	//network items
 	Networks []*Network `protobuf:"bytes,1,rep,name=networks,proto3" json:"networks,omitempty"`
 }
 
@@ -551,13 +551,13 @@ func (x *SyncNetworks) GetNetworks() []*Network {
 	return nil
 }
 
-// ListNetworksReq: req to list Networks
+//ListNetworksReq: req to list Networks
 type ListNetworksReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// network names scope; if none then list all netrworks
+	//network names scope; if none then list all netrworks
 	NeteworkNames []string `protobuf:"bytes,1,rep,name=netework_names,json=neteworkNames,proto3" json:"netework_names,omitempty"`
 }
 
@@ -600,13 +600,13 @@ func (x *ListNetworksReq) GetNeteworkNames() []string {
 	return nil
 }
 
-// ListNetworksResp: Network list resp
+//ListNetworksResp: Network list resp
 type ListNetworksResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// network items
+	//network items
 	Networks []*Network `protobuf:"bytes,1,rep,name=networks,proto3" json:"networks,omitempty"`
 }
 
@@ -649,13 +649,13 @@ func (x *ListNetworksResp) GetNetworks() []*Network {
 	return nil
 }
 
-// ListSecurityGroupsReq: req to list Seocurity Groups
+//ListSecurityGroupsReq: req to list Seocurity Groups
 type ListSecurityGroupsReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// SG names scope; if none then list all SGs
+	//SG names scope; if none then list all SGs
 	SgNames []string `protobuf:"bytes,1,rep,name=sg_names,json=sgNames,proto3" json:"sg_names,omitempty"`
 }
 
@@ -698,13 +698,13 @@ func (x *ListSecurityGroupsReq) GetSgNames() []string {
 	return nil
 }
 
-// ListSecurityGroupsResp: Security Groups list resp
+//ListSecurityGroupsResp: Security Groups list resp
 type ListSecurityGroupsResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// security group items
+	//security group items
 	Groups []*SecGroup `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
 }
 
@@ -747,18 +747,17 @@ func (x *ListSecurityGroupsResp) GetGroups() []*SecGroup {
 	return nil
 }
 
-// SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]
+//SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]
 type SyncReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// sync operation to apply to
+	//sync operation to apply to
 	SyncOp SyncReq_SyncOp `protobuf:"varint,1,opt,name=sync_op,json=syncOp,proto3,enum=hbf.v1.sgroups.SyncReq_SyncOp" json:"sync_op,omitempty"`
-	// one of subject
+	//one of subject
 	//
 	// Types that are assignable to Subject:
-	//
 	//	*SyncReq_SgRules
 	//	*SyncReq_Groups
 	//	*SyncReq_Networks
@@ -837,17 +836,17 @@ type isSyncReq_Subject interface {
 }
 
 type SyncReq_SgRules struct {
-	// subject of Security Grpup(s) Rule(s)
+	//subject of Security Grpup(s) Rule(s)
 	SgRules *SyncSGRules `protobuf:"bytes,2,opt,name=sg_rules,json=sgRules,proto3,oneof"`
 }
 
 type SyncReq_Groups struct {
-	// subject of Security Grpup(s)
+	//subject of Security Grpup(s)
 	Groups *SyncSecurityGroups `protobuf:"bytes,3,opt,name=groups,proto3,oneof"`
 }
 
 type SyncReq_Networks struct {
-	// subject of Network(s)
+	//subject of Network(s)
 	Networks *SyncNetworks `protobuf:"bytes,4,opt,name=networks,proto3,oneof"`
 }
 
@@ -857,13 +856,13 @@ func (*SyncReq_Groups) isSyncReq_Subject() {}
 
 func (*SyncReq_Networks) isSyncReq_Subject() {}
 
-// GetSgSubnetsReq: req to get Networks related to Security Group
+//GetSgSubnetsReq: req to get Networks related to Security Group
 type GetSgSubnetsReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// security group name
+	//security group name
 	SgName string `protobuf:"bytes,1,opt,name=sg_name,json=sgName,proto3" json:"sg_name,omitempty"`
 }
 
@@ -906,13 +905,13 @@ func (x *GetSgSubnetsReq) GetSgName() string {
 	return ""
 }
 
-// GetSgSubnetsResp: Networks related to Security Group resp
+//GetSgSubnetsResp: Networks related to Security Group resp
 type GetSgSubnetsResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// network items
+	//network items
 	Networks []*Network `protobuf:"bytes,1,rep,name=networks,proto3" json:"networks,omitempty"`
 }
 
@@ -955,15 +954,15 @@ func (x *GetSgSubnetsResp) GetNetworks() []*Network {
 	return nil
 }
 
-// GetRulesReq; req to get Rules scoped by SecGroup pair 'from' --> 'to'
+//GetRulesReq; req to get Rules scoped by SecGroup pair 'from' --> 'to'
 type GetRulesReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// name of security groups 'from'
+	//name of security groups 'from'
 	SgFrom string `protobuf:"bytes,1,opt,name=sg_from,json=sgFrom,proto3" json:"sg_from,omitempty"`
-	// name of security groups 'to'
+	//name of security groups 'to'
 	SgTo string `protobuf:"bytes,2,opt,name=sg_to,json=sgTo,proto3" json:"sg_to,omitempty"`
 }
 
@@ -1013,15 +1012,15 @@ func (x *GetRulesReq) GetSgTo() string {
 	return ""
 }
 
-// FindRulesReq: req to find all SecGroup(s) Rule(s) scoped by variety('from') --> variety('to') SG(s)
+//FindRulesReq: req to find all SecGroup(s) Rule(s) scoped by variety('from') --> variety('to') SG(s)
 type FindRulesReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// scope GS name 'from' items
+	//scope GS name 'from' items
 	SgFrom []string `protobuf:"bytes,1,rep,name=sg_from,json=sgFrom,proto3" json:"sg_from,omitempty"`
-	// scope  GS name 'to' items
+	//scope  GS name 'to' items
 	SgTo []string `protobuf:"bytes,2,rep,name=sg_to,json=sgTo,proto3" json:"sg_to,omitempty"`
 }
 
@@ -1071,13 +1070,13 @@ func (x *FindRulesReq) GetSgTo() []string {
 	return nil
 }
 
-// RulesResp: Security Group(s) Rule(s) resp
+//RulesResp: Security Group(s) Rule(s) resp
 type RulesResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// SG rule(s) items
+	//SG rule(s) items
 	Rules []*Rule `protobuf:"bytes,1,rep,name=rules,proto3" json:"rules,omitempty"`
 }
 
@@ -1120,13 +1119,13 @@ func (x *RulesResp) GetRules() []*Rule {
 	return nil
 }
 
-// GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
+//GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
 type GetSecGroupForAddressReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// an IP or CIDR
+	//an IP or CIDR
 	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 }
 
@@ -1169,15 +1168,15 @@ func (x *GetSecGroupForAddressReq) GetAddress() string {
 	return ""
 }
 
-// Ports: represents Security Group Rule access source-dest ports
+//Ports: represents Security Group Rule access source-dest ports
 type Rule_Ports struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// source port "num" or port range "num1-num2"
+	//source port "num" or port range "num1-num2"
 	S string `protobuf:"bytes,1,opt,name=s,proto3" json:"s,omitempty"`
-	// destination  port "num" or port range "num1-num2"
+	//destination  port "num" or port range "num1-num2"
 	D string `protobuf:"bytes,2,opt,name=d,proto3" json:"d,omitempty"`
 }
 
