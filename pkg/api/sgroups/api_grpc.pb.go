@@ -25,6 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type SecGroupServiceClient interface {
 	Sync(ctx context.Context, in *SyncReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	SyncStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*SyncStatusResp, error)
+	SyncStatuses(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SecGroupService_SyncStatusesClient, error)
 	ListNetworks(ctx context.Context, in *ListNetworksReq, opts ...grpc.CallOption) (*ListNetworksResp, error)
 	ListSecurityGroups(ctx context.Context, in *ListSecurityGroupsReq, opts ...grpc.CallOption) (*ListSecurityGroupsResp, error)
 	GetSgSubnets(ctx context.Context, in *GetSgSubnetsReq, opts ...grpc.CallOption) (*GetSgSubnetsResp, error)
@@ -58,6 +59,38 @@ func (c *secGroupServiceClient) SyncStatus(ctx context.Context, in *emptypb.Empt
 		return nil, err
 	}
 	return out, nil
+}
+
+func (c *secGroupServiceClient) SyncStatuses(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SecGroupService_SyncStatusesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &SecGroupService_ServiceDesc.Streams[0], "/hbf.v1.sgroups.SecGroupService/SyncStatuses", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &secGroupServiceSyncStatusesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type SecGroupService_SyncStatusesClient interface {
+	Recv() (*SyncStatusResp, error)
+	grpc.ClientStream
+}
+
+type secGroupServiceSyncStatusesClient struct {
+	grpc.ClientStream
+}
+
+func (x *secGroupServiceSyncStatusesClient) Recv() (*SyncStatusResp, error) {
+	m := new(SyncStatusResp)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func (c *secGroupServiceClient) ListNetworks(ctx context.Context, in *ListNetworksReq, opts ...grpc.CallOption) (*ListNetworksResp, error) {
@@ -129,6 +162,7 @@ func (c *secGroupServiceClient) GetSecGroupForAddress(ctx context.Context, in *G
 type SecGroupServiceServer interface {
 	Sync(context.Context, *SyncReq) (*emptypb.Empty, error)
 	SyncStatus(context.Context, *emptypb.Empty) (*SyncStatusResp, error)
+	SyncStatuses(*emptypb.Empty, SecGroupService_SyncStatusesServer) error
 	ListNetworks(context.Context, *ListNetworksReq) (*ListNetworksResp, error)
 	ListSecurityGroups(context.Context, *ListSecurityGroupsReq) (*ListSecurityGroupsResp, error)
 	GetSgSubnets(context.Context, *GetSgSubnetsReq) (*GetSgSubnetsResp, error)
@@ -148,6 +182,9 @@ func (UnimplementedSecGroupServiceServer) Sync(context.Context, *SyncReq) (*empt
 }
 func (UnimplementedSecGroupServiceServer) SyncStatus(context.Context, *emptypb.Empty) (*SyncStatusResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SyncStatus not implemented")
+}
+func (UnimplementedSecGroupServiceServer) SyncStatuses(*emptypb.Empty, SecGroupService_SyncStatusesServer) error {
+	return status.Errorf(codes.Unimplemented, "method SyncStatuses not implemented")
 }
 func (UnimplementedSecGroupServiceServer) ListNetworks(context.Context, *ListNetworksReq) (*ListNetworksResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListNetworks not implemented")
@@ -217,6 +254,27 @@ func _SecGroupService_SyncStatus_Handler(srv interface{}, ctx context.Context, d
 		return srv.(SecGroupServiceServer).SyncStatus(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _SecGroupService_SyncStatuses_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(emptypb.Empty)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(SecGroupServiceServer).SyncStatuses(m, &secGroupServiceSyncStatusesServer{stream})
+}
+
+type SecGroupService_SyncStatusesServer interface {
+	Send(*SyncStatusResp) error
+	grpc.ServerStream
+}
+
+type secGroupServiceSyncStatusesServer struct {
+	grpc.ServerStream
+}
+
+func (x *secGroupServiceSyncStatusesServer) Send(m *SyncStatusResp) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _SecGroupService_ListNetworks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -389,6 +447,12 @@ var SecGroupService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SecGroupService_GetSecGroupForAddress_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "SyncStatuses",
+			Handler:       _SecGroupService_SyncStatuses_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "sgroups/api.proto",
 }

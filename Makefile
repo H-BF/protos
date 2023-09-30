@@ -62,14 +62,13 @@ ifeq ($(wildcard $(GOBIN)/protoc-gen-go-grpc),)
 endif
 	@echo 0 > /dev/null
 
-#proto_dirs := ipvs ipruler route tunnel announcer healthcheck sgroups common
 proto_dirs := sgroups common
 .PHONY: generate-api
 generate-api:
 	@(\
 	apis=$(CURDIR)/api && \
 	dest=$(CURDIR)/pkg/api && \
-	PATH=$(PATH):$(GOBIN) && \
+	PATH=$(PATH):$(GOBIN):/usr/include:/usr/local/include && \
 	rm -rf $$dest 2>/dev/null && \
 	mkdir -p $$dest && \
 	echo generating API in \"$$dest\" ... && \
@@ -79,7 +78,6 @@ generate-api:
 			protoc \
 				-I $(CURDIR)/vendor/github.com/grpc-ecosystem/grpc-gateway/v2/ \
 				-I $(CURDIR)/3d-party \
-				-I /usr/local/include \
 				--go_opt=paths=source_relative \
 				--go-grpc_opt=paths=source_relative \
 				--go_out $$dest \

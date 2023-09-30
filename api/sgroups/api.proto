@@ -295,6 +295,8 @@ service SecGroupService {
         description: "SyncStatus: gets last succeeded update DB status";       
      };
    }
+
+   rpc SyncStatuses(google.protobuf.Empty) returns(stream SyncStatusResp){}
    
    rpc ListNetworks(ListNetworksReq) returns (ListNetworksResp) {
      option (google.api.http) = {
