@@ -396,7 +396,7 @@
       "type": "object",
       "properties": {
         "IPv": {
-          "$ref": "#/definitions/commonIPv"
+          "$ref": "#/definitions/commonIpAddrFamily"
         },
         "Types": {
           "type": "array",
@@ -408,15 +408,15 @@
       },
       "title": "IP/ICMP protocol"
     },
-    "commonIPv": {
+    "commonIpAddrFamily": {
       "type": "string",
       "enum": [
         "_",
-        "V4",
-        "V6"
+        "IPv4",
+        "IPv6"
       ],
       "default": "_",
-      "title": "IP version"
+      "title": "IP Anddress family"
     },
     "protobufAny": {
       "type": "object",
