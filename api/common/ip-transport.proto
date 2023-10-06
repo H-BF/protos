@@ -26,3 +26,16 @@ message Networks {
   }
 }
 
+// IP version
+enum IPv {
+  _ = 0;
+  V4 = 1; //IPv4
+  V6 = 2; //IPv6
+}
+
+// IP/ICMP protocol
+message ICMP {
+  IPv IPv = 1;
+  repeated uint32 Types  = 2; // ICMP message types
+}
+

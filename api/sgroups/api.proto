@@ -115,6 +115,18 @@ message FqdnRule {
   bool logs = 5;
 }
 
+// SG:ICMP type rule
+message SgIcmpRule {
+  // Security group name
+  string Sg = 1;
+  // ICMP spec
+  common.ICMP ICMP = 2;
+  //logs: switch-{ON|OFF} logs in rules
+  bool logs = 3;
+  //trace: switch-{ON|OFF} trace in rules
+  bool trace = 4; 
+}
+
 //SyncStatusResp: db status after last succeeded Sync
 message SyncStatusResp {
   //last succeeded updated DB timestamp
@@ -143,6 +155,11 @@ message SyncSecurityGroups{
 message SyncNetworks{
   //network items
   repeated Network networks = 1;
+}
+
+//SyncSgIcmpRules: subject of SyncSgIcmpRule to Sync 
+message SyncSgIcmpRules {
+  repeated SgIcmpRule rules = 1;
 }
 
 //ListNetworksReq: req to list Networks
@@ -192,6 +209,8 @@ message SyncReq {
       SyncNetworks networks = 4;
       //subject of FQDN Rule(s)
       SyncFqdnRules fqdn_rules = 5;
+      //subject of SG:ICMP Rule(s)
+      SyncSgIcmpRules sg_icmp_rules = 6;
   }
 }
 
@@ -259,6 +278,23 @@ message FindFqdnRulesReq {
 message FqdnRulesResp {
   //FQDN rule(s) items
   repeated FqdnRule rules = 1;
+}
+
+//FindSgIcmpRulesReq: req to find all SG:ICMP Rule(s) scoped by SG(s) variety
+message FindSgIcmpRulesReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {      
+      required: ["sg"]
+    }    
+  };
+  //scope GS name item(s)
+  repeated string sg = 1;
+}
+
+//FindSgIcmpRulesResp: FQDN Rule(s) resp
+message SgIcmpRulesResp {
+  //SgIcmp rule item(s)
+  repeated SgIcmpRule rules = 1;
 }
 
 //GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
@@ -355,6 +391,16 @@ service SecGroupService {
         description: "FindFqgnRules: finds FQDN Rule(s) scoped by variety SG 'from'";       
      };
   };
+
+  rpc FindSgIcmpRules(FindSgIcmpRulesReq) returns (SgIcmpRulesResp) {
+    option (google.api.http) = {
+       post: "/v1/sg-icmp/rules"
+       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+       description: "FindSgIcmpRules: finds SG:ICMP Rule(s) scoped by variety SG";       
+    };
+ };
    
   rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
      option (google.api.http) = {
