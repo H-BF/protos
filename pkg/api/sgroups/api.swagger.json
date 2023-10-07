@@ -228,6 +228,39 @@
         ]
       }
     },
+    "/v1/sg-sg-icmp/rules": {
+      "post": {
+        "description": "FindSgSgIcmpRules: finds SG-SG:ICMP Rule(s) scoped by variety SG\u003cFROM-TO\u003e",
+        "operationId": "SecGroupService_FindSgSgIcmpRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sgroupsSgSgIcmpRulesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sgroupsFindSgSgIcmpRulesReq"
+            }
+          }
+        ],
+        "tags": [
+          "SecGroupService"
+        ]
+      }
+    },
     "/v1/sg/{sgName}/subnets": {
       "get": {
         "description": "GetSgSubnets: gets Networks related to SG",
@@ -515,6 +548,30 @@
         "sg"
       ]
     },
+    "sgroupsFindSgSgIcmpRulesReq": {
+      "type": "object",
+      "properties": {
+        "sgFrom": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope GS-from name item(s)"
+        },
+        "sgTo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope GS-to name item(s)"
+        }
+      },
+      "title": "FindSgSgIcmpRulesReq: req to find all SG-SG:ICMP Rule(s) scoped by SG(s) variety",
+      "required": [
+        "sgFrom",
+        "sgTo"
+      ]
+    },
     "sgroupsFqdnRule": {
       "type": "object",
       "properties": {
@@ -756,7 +813,46 @@
           "title": "SgIcmp rule item(s)"
         }
       },
-      "title": "FindSgIcmpRulesResp: FQDN Rule(s) resp"
+      "title": "FindSgIcmpRulesResp: SG:ICMP Rule(s) resp"
+    },
+    "sgroupsSgSgIcmpRule": {
+      "type": "object",
+      "properties": {
+        "SgFrom": {
+          "type": "string",
+          "title": "Security group name"
+        },
+        "SgTo": {
+          "type": "string",
+          "title": "Security group name"
+        },
+        "ICMP": {
+          "$ref": "#/definitions/commonICMP",
+          "title": "ICMP spec"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "trace": {
+          "type": "boolean",
+          "title": "trace: switch-{ON|OFF} trace in rules"
+        }
+      },
+      "title": "SG-SG:ICMP type rule"
+    },
+    "sgroupsSgSgIcmpRulesResp": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsSgSgIcmpRule"
+          },
+          "title": "SgSgIcmp rule item(s)"
+        }
+      },
+      "title": "SgSgIcmpRulesResp: SG-SG:ICMP Rule(s) resp"
     },
     "sgroupsSyncFqdnRules": {
       "type": "object",
@@ -793,7 +889,7 @@
         },
         "sgRules": {
           "$ref": "#/definitions/sgroupsSyncSGRules",
-          "title": "subject of Security Grpup(s) Rule(s)"
+          "title": "subject of Security Grpup(s) rule(s)"
         },
         "groups": {
           "$ref": "#/definitions/sgroupsSyncSecurityGroups",
@@ -805,11 +901,15 @@
         },
         "fqdnRules": {
           "$ref": "#/definitions/sgroupsSyncFqdnRules",
-          "title": "subject of FQDN Rule(s)"
+          "title": "subject of FQDN rule(s)"
         },
         "sgIcmpRules": {
           "$ref": "#/definitions/sgroupsSyncSgIcmpRules",
-          "title": "subject of SG:ICMP Rule(s)"
+          "title": "subject of SG:ICMP rule(s)"
+        },
+        "sgSgIcmpRules": {
+          "$ref": "#/definitions/sgroupsSyncSgSgIcmpRules",
+          "title": "subject of SG-SG:ICMP rule(s)"
         }
       },
       "title": "SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]"
@@ -850,7 +950,19 @@
           }
         }
       },
-      "title": "SyncSgIcmpRules: subject of SyncSgIcmpRule to Sync"
+      "title": "SyncSgIcmpRules: subject of SG:ICMP to Sync"
+    },
+    "sgroupsSyncSgSgIcmpRules": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsSgSgIcmpRule"
+          }
+        }
+      },
+      "title": "SyncSgSgIcmpRules: subject of SG-SG:ICMP to Sync"
     },
     "sgroupsSyncStatusResp": {
       "type": "object",
