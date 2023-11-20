@@ -26,3 +26,16 @@ message Networks {
   }
 }
 
+// IP Anddress family
+enum IpAddrFamily {
+  _ = 0;
+  IPv4 = 1; //IPv4
+  IPv6 = 2; //IPv6
+}
+
+// IP/ICMP protocol
+message ICMP {
+  IpAddrFamily IPv = 1;
+  repeated uint32 Types  = 2; // ICMP message types
+}
+
