@@ -24,6 +24,39 @@
     "application/json"
   ],
   "paths": {
+    "/v1/cird-sg/rules": {
+      "post": {
+        "description": "FindCidrSgRules: finds CIDR-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG",
+        "operationId": "SecGroupService_FindCidrSgRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sgroupsCidrSgRulesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sgroupsFindCidrSgRulesReq"
+            }
+          }
+        ],
+        "tags": [
+          "SecGroupService"
+        ]
+      }
+    },
     "/v1/fqdn/rules": {
       "post": {
         "description": "FindFqgnRules: finds FQDN Rule(s) scoped by variety SG 'from'",
@@ -451,6 +484,16 @@
       "default": "_",
       "title": "IP Anddress family"
     },
+    "commonTraffic": {
+      "type": "string",
+      "enum": [
+        "Undef",
+        "Ingress",
+        "Egress"
+      ],
+      "default": "Undef",
+      "title": "Ingress / Egress traffic dir"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -491,6 +534,78 @@
         }
       },
       "title": "AccPorts: represents Security Group Rule access source-dest ports"
+    },
+    "sgroupsCidrSgRule": {
+      "type": "object",
+      "properties": {
+        "transport": {
+          "$ref": "#/definitions/NetIPTransport",
+          "title": "ip net transport [TCP, UDP]"
+        },
+        "CIDR": {
+          "type": "string",
+          "title": "CIDR subnetwork IPv4|IPv6"
+        },
+        "SG": {
+          "type": "string",
+          "title": "SG security group name"
+        },
+        "traffic": {
+          "$ref": "#/definitions/commonTraffic",
+          "title": "traffic direction [INGERSS, EGRESS]"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsAccPorts"
+          },
+          "title": "AccPorts: access port set(s)"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "trace": {
+          "type": "boolean",
+          "title": "trace: switch-{ON|OFF} logs in rules"
+        }
+      },
+      "title": "CIDR-SG NET-SG Ingress Egress type rule",
+      "required": [
+        "CIDR",
+        "SG",
+        "transport",
+        "traffic"
+      ]
+    },
+    "sgroupsCidrSgRulesResp": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsCidrSgRule"
+          },
+          "title": "СidrSgRules rule item(s)"
+        }
+      },
+      "title": "СidrSgRulesResp: CIDR-SG-[INGRESS, EGRESS] rule(s) resp"
+    },
+    "sgroupsFindCidrSgRulesReq": {
+      "type": "object",
+      "properties": {
+        "sg": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope GS name item(s)"
+        }
+      },
+      "title": "FindCidrSgRulesReq: req to find all CIRD-SG-[INGRESS|EGRESS] Rule(s) scoped by SG(s) variety",
+      "required": [
+        "sg"
+      ]
     },
     "sgroupsFindFqdnRulesReq": {
       "type": "object",
@@ -854,6 +969,18 @@
       },
       "title": "SgSgIcmpRulesResp: SG-SG:ICMP Rule(s) resp"
     },
+    "sgroupsSyncCidrSgRules": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsCidrSgRule"
+          }
+        }
+      },
+      "title": "SyncCidrSgRules: subject of CIDR-SG-[INGRESS|EGRESS] to Sync"
+    },
     "sgroupsSyncFqdnRules": {
       "type": "object",
       "properties": {
@@ -910,6 +1037,10 @@
         "sgSgIcmpRules": {
           "$ref": "#/definitions/sgroupsSyncSgSgIcmpRules",
           "title": "subject of SG-SG:ICMP rule(s)"
+        },
+        "cidrSgRules": {
+          "$ref": "#/definitions/sgroupsSyncCidrSgRules",
+          "title": "subject of CIDR-SG-[INGERSS,EGRESS] rule(s)"
         }
       },
       "title": "SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]"

@@ -141,6 +141,29 @@ message SgSgIcmpRule {
   bool trace = 5; 
 }
 
+// CIDR-SG NET-SG Ingress Egress type rule
+message CidrSgRule {  
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: { 
+      required: ["CIDR", "SG", "transport", "traffic"]
+    }    
+  };
+  //ip net transport [TCP, UDP]
+  common.Networks.NetIP.Transport transport = 1;
+  // CIDR subnetwork IPv4|IPv6
+  string CIDR = 2;
+  // SG security group name
+  string SG = 3;  
+  // traffic direction [INGERSS, EGRESS]
+  common.Traffic traffic = 4;
+  //AccPorts: access port set(s)
+  repeated AccPorts ports = 5;
+  //logs: switch-{ON|OFF} logs in rules
+  bool logs = 6;
+  //trace: switch-{ON|OFF} logs in rules
+  bool trace = 7;
+}
+
 //SyncStatusResp: db status after last succeeded Sync
 message SyncStatusResp {
   //last succeeded updated DB timestamp
@@ -180,6 +203,12 @@ message SyncSgIcmpRules {
 message SyncSgSgIcmpRules {
   repeated SgSgIcmpRule rules = 1;
 }
+
+//SyncCidrSgRules: subject of CIDR-SG-[INGRESS|EGRESS] to Sync
+message SyncCidrSgRules {
+  repeated CidrSgRule rules = 1;
+}
+
 
 //ListNetworksReq: req to list Networks
 message ListNetworksReq {
@@ -232,6 +261,8 @@ message SyncReq {
       SyncSgIcmpRules sg_icmp_rules = 6;
       //subject of SG-SG:ICMP rule(s)
       SyncSgSgIcmpRules sg_sg_icmp_rules = 7;
+      //subject of CIDR-SG-[INGERSS,EGRESS] rule(s)
+      SyncCidrSgRules cidr_sg_rules = 8;
   }
 }
 
@@ -336,6 +367,24 @@ message SgSgIcmpRulesResp {
   //SgSgIcmp rule item(s)
   repeated SgSgIcmpRule rules = 1;
 }
+
+//FindCidrSgRulesReq: req to find all CIRD-SG-[INGRESS|EGRESS] Rule(s) scoped by SG(s) variety
+message FindCidrSgRulesReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["sg"]
+    }
+  };
+  //scope GS name item(s)
+  repeated string sg = 1;
+}
+
+//СidrSgRulesResp: CIDR-SG-[INGRESS, EGRESS] rule(s) resp
+message CidrSgRulesResp {
+  //СidrSgRules rule item(s)
+  repeated CidrSgRule rules = 1;
+}
+
 
 //GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
 message GetSecGroupForAddressReq{
@@ -450,14 +499,24 @@ service SecGroupService {
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "FindSgSgIcmpRules: finds SG-SG:ICMP Rule(s) scoped by variety SG<FROM-TO>";       
      };
-  };
+   };
+
+   rpc FindCidrSgRules(FindCidrSgRulesReq) returns (CidrSgRulesResp) {
+     option (google.api.http) = {
+        post: "/v1/cird-sg/rules"
+        body: "*"
+     };
+     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        description: "FindCidrSgRules: finds CIDR-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG";       
+     };
+   };
    
-  rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
+   rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
      option (google.api.http) = {
         get: "/v1/{address}/sg"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "GetSecGroupForAddress: gets Security Group by IP or CIDR";       
      };
-  };
+   };
 }
