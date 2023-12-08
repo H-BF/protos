@@ -39,3 +39,11 @@ message ICMP {
   repeated uint32 Types  = 2; // ICMP message types
 }
 
+
+// Ingress / Egress traffic dir
+enum Traffic {
+  Undef = 0; // undefined tfaffic direction
+  Ingress = 1; // Ingress 
+  Egress = 2; // Egress
+}
+

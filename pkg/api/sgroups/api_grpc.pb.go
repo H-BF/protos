@@ -34,6 +34,7 @@ type SecGroupServiceClient interface {
 	FindFqdnRules(ctx context.Context, in *FindFqdnRulesReq, opts ...grpc.CallOption) (*FqdnRulesResp, error)
 	FindSgIcmpRules(ctx context.Context, in *FindSgIcmpRulesReq, opts ...grpc.CallOption) (*SgIcmpRulesResp, error)
 	FindSgSgIcmpRules(ctx context.Context, in *FindSgSgIcmpRulesReq, opts ...grpc.CallOption) (*SgSgIcmpRulesResp, error)
+	FindCidrSgRules(ctx context.Context, in *FindCidrSgRulesReq, opts ...grpc.CallOption) (*CidrSgRulesResp, error)
 	GetSecGroupForAddress(ctx context.Context, in *GetSecGroupForAddressReq, opts ...grpc.CallOption) (*SecGroup, error)
 }
 
@@ -167,6 +168,15 @@ func (c *secGroupServiceClient) FindSgSgIcmpRules(ctx context.Context, in *FindS
 	return out, nil
 }
 
+func (c *secGroupServiceClient) FindCidrSgRules(ctx context.Context, in *FindCidrSgRulesReq, opts ...grpc.CallOption) (*CidrSgRulesResp, error) {
+	out := new(CidrSgRulesResp)
+	err := c.cc.Invoke(ctx, "/hbf.v1.sgroups.SecGroupService/FindCidrSgRules", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *secGroupServiceClient) GetSecGroupForAddress(ctx context.Context, in *GetSecGroupForAddressReq, opts ...grpc.CallOption) (*SecGroup, error) {
 	out := new(SecGroup)
 	err := c.cc.Invoke(ctx, "/hbf.v1.sgroups.SecGroupService/GetSecGroupForAddress", in, out, opts...)
@@ -191,6 +201,7 @@ type SecGroupServiceServer interface {
 	FindFqdnRules(context.Context, *FindFqdnRulesReq) (*FqdnRulesResp, error)
 	FindSgIcmpRules(context.Context, *FindSgIcmpRulesReq) (*SgIcmpRulesResp, error)
 	FindSgSgIcmpRules(context.Context, *FindSgSgIcmpRulesReq) (*SgSgIcmpRulesResp, error)
+	FindCidrSgRules(context.Context, *FindCidrSgRulesReq) (*CidrSgRulesResp, error)
 	GetSecGroupForAddress(context.Context, *GetSecGroupForAddressReq) (*SecGroup, error)
 	mustEmbedUnimplementedSecGroupServiceServer()
 }
@@ -231,6 +242,9 @@ func (UnimplementedSecGroupServiceServer) FindSgIcmpRules(context.Context, *Find
 }
 func (UnimplementedSecGroupServiceServer) FindSgSgIcmpRules(context.Context, *FindSgSgIcmpRulesReq) (*SgSgIcmpRulesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindSgSgIcmpRules not implemented")
+}
+func (UnimplementedSecGroupServiceServer) FindCidrSgRules(context.Context, *FindCidrSgRulesReq) (*CidrSgRulesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindCidrSgRules not implemented")
 }
 func (UnimplementedSecGroupServiceServer) GetSecGroupForAddress(context.Context, *GetSecGroupForAddressReq) (*SecGroup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSecGroupForAddress not implemented")
@@ -449,6 +463,24 @@ func _SecGroupService_FindSgSgIcmpRules_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SecGroupService_FindCidrSgRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindCidrSgRulesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SecGroupServiceServer).FindCidrSgRules(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hbf.v1.sgroups.SecGroupService/FindCidrSgRules",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SecGroupServiceServer).FindCidrSgRules(ctx, req.(*FindCidrSgRulesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SecGroupService_GetSecGroupForAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSecGroupForAddressReq)
 	if err := dec(in); err != nil {
@@ -513,6 +545,10 @@ var SecGroupService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindSgSgIcmpRules",
 			Handler:    _SecGroupService_FindSgSgIcmpRules_Handler,
+		},
+		{
+			MethodName: "FindCidrSgRules",
+			Handler:    _SecGroupService_FindCidrSgRules_Handler,
 		},
 		{
 			MethodName: "GetSecGroupForAddress",
