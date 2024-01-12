@@ -35,6 +35,7 @@ type SecGroupServiceClient interface {
 	FindSgIcmpRules(ctx context.Context, in *FindSgIcmpRulesReq, opts ...grpc.CallOption) (*SgIcmpRulesResp, error)
 	FindSgSgIcmpRules(ctx context.Context, in *FindSgSgIcmpRulesReq, opts ...grpc.CallOption) (*SgSgIcmpRulesResp, error)
 	FindCidrSgRules(ctx context.Context, in *FindCidrSgRulesReq, opts ...grpc.CallOption) (*CidrSgRulesResp, error)
+	FindSgSgRules(ctx context.Context, in *FindSgSgRulesReq, opts ...grpc.CallOption) (*SgSgRulesResp, error)
 	GetSecGroupForAddress(ctx context.Context, in *GetSecGroupForAddressReq, opts ...grpc.CallOption) (*SecGroup, error)
 }
 
@@ -177,6 +178,15 @@ func (c *secGroupServiceClient) FindCidrSgRules(ctx context.Context, in *FindCid
 	return out, nil
 }
 
+func (c *secGroupServiceClient) FindSgSgRules(ctx context.Context, in *FindSgSgRulesReq, opts ...grpc.CallOption) (*SgSgRulesResp, error) {
+	out := new(SgSgRulesResp)
+	err := c.cc.Invoke(ctx, "/hbf.v1.sgroups.SecGroupService/FindSgSgRules", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *secGroupServiceClient) GetSecGroupForAddress(ctx context.Context, in *GetSecGroupForAddressReq, opts ...grpc.CallOption) (*SecGroup, error) {
 	out := new(SecGroup)
 	err := c.cc.Invoke(ctx, "/hbf.v1.sgroups.SecGroupService/GetSecGroupForAddress", in, out, opts...)
@@ -202,6 +212,7 @@ type SecGroupServiceServer interface {
 	FindSgIcmpRules(context.Context, *FindSgIcmpRulesReq) (*SgIcmpRulesResp, error)
 	FindSgSgIcmpRules(context.Context, *FindSgSgIcmpRulesReq) (*SgSgIcmpRulesResp, error)
 	FindCidrSgRules(context.Context, *FindCidrSgRulesReq) (*CidrSgRulesResp, error)
+	FindSgSgRules(context.Context, *FindSgSgRulesReq) (*SgSgRulesResp, error)
 	GetSecGroupForAddress(context.Context, *GetSecGroupForAddressReq) (*SecGroup, error)
 	mustEmbedUnimplementedSecGroupServiceServer()
 }
@@ -245,6 +256,9 @@ func (UnimplementedSecGroupServiceServer) FindSgSgIcmpRules(context.Context, *Fi
 }
 func (UnimplementedSecGroupServiceServer) FindCidrSgRules(context.Context, *FindCidrSgRulesReq) (*CidrSgRulesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindCidrSgRules not implemented")
+}
+func (UnimplementedSecGroupServiceServer) FindSgSgRules(context.Context, *FindSgSgRulesReq) (*SgSgRulesResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindSgSgRules not implemented")
 }
 func (UnimplementedSecGroupServiceServer) GetSecGroupForAddress(context.Context, *GetSecGroupForAddressReq) (*SecGroup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSecGroupForAddress not implemented")
@@ -481,6 +495,24 @@ func _SecGroupService_FindCidrSgRules_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SecGroupService_FindSgSgRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindSgSgRulesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SecGroupServiceServer).FindSgSgRules(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hbf.v1.sgroups.SecGroupService/FindSgSgRules",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SecGroupServiceServer).FindSgSgRules(ctx, req.(*FindSgSgRulesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SecGroupService_GetSecGroupForAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSecGroupForAddressReq)
 	if err := dec(in); err != nil {
@@ -549,6 +581,10 @@ var SecGroupService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindCidrSgRules",
 			Handler:    _SecGroupService_FindCidrSgRules_Handler,
+		},
+		{
+			MethodName: "FindSgSgRules",
+			Handler:    _SecGroupService_FindSgSgRules_Handler,
 		},
 		{
 			MethodName: "GetSecGroupForAddress",
