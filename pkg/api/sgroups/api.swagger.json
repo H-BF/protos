@@ -712,6 +712,13 @@
         "logs": {
           "type": "boolean",
           "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "protocols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "protocols: L7 protocol list"
         }
       },
       "title": "FqdnRule: represents Security Groups Rule",
