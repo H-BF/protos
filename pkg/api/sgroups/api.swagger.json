@@ -723,25 +723,25 @@
     "sgroupsFindSgSgRulesReq": {
       "type": "object",
       "properties": {
-        "SgName": {
+        "SgI": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "title": "scope SgName name item(s)"
+          "title": "scope SgI name item(s)"
         },
-        "SgTarget": {
+        "SgE": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "title": "scope SgTarget name item(s)"
+          "title": "scope SgE name item(s)"
         }
       },
       "title": "FindSgSgRulesReq: req to find all SG-SG-[INGRESS|EGRESS] rule(s)",
       "required": [
-        "SgName",
-        "SgTarget"
+        "SgI",
+        "SgE"
       ]
     },
     "sgroupsFqdnRule": {
@@ -1033,13 +1033,13 @@
           "$ref": "#/definitions/NetIPTransport",
           "title": "ip net transport [TCP, UDP]"
         },
-        "SgName": {
+        "SgI": {
           "type": "string",
-          "title": "Security group name which owns rule"
+          "title": "Security group name which will be src when egress chosen, and dst when ingress"
         },
-        "SgTarget": {
+        "SgE": {
           "type": "string",
-          "title": "Security group name which will be src/dst of traffic when ingress/egress option choosen"
+          "title": "Security group name which will be src/dst of traffic when ingress/egress option chosen"
         },
         "traffic": {
           "$ref": "#/definitions/commonTraffic",
@@ -1063,8 +1063,8 @@
       },
       "title": "SG-SG \u003cin|e\u003egress type rule",
       "required": [
-        "SgName",
-        "SgTarget",
+        "SgI",
+        "SgE",
         "transport",
         "traffic"
       ]
