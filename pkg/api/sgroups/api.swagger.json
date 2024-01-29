@@ -450,12 +450,13 @@
     "SyncReqSyncOp": {
       "type": "string",
       "enum": [
+        "NoOp",
         "FullSync",
         "Upsert",
         "Delete"
       ],
-      "default": "FullSync",
-      "description": "- FullSync: FullSync: Delete+Insert+Update operations (default)\n - Upsert: Upsert: Insert+Update operations\n - Delete: Delete: Delete operation",
+      "default": "NoOp",
+      "description": "- NoOp: NoOp: it meand there is no operation defined as default\n - FullSync: FullSync: Delete+Insert+Update operations (default)\n - Upsert: Upsert: Insert+Update operations\n - Delete: Delete: Delete operation",
       "title": "SyncOp: sync operation"
     },
     "commonICMP": {
