@@ -168,15 +168,15 @@ message CidrSgRule {
 message SgSgRule {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { 
-      required: ["SgI", "SgE", "transport", "traffic"]
+      required: ["Sg", "SgLocal", "transport", "traffic"]
     }    
   };
   // ip net transport [TCP, UDP]
   common.Networks.NetIP.Transport transport = 1;
-  // Security group name which will be src when egress chosen, and dst when ingress
-  string SgI = 2;
   // Security group name which will be src/dst of traffic when ingress/egress option chosen
-  string SgE = 3;
+  string Sg = 2;
+  // Security group name which will be src when egress chosen, and dst when ingress
+  string SgLocal = 3;
   // traffic direction [INGERSS, EGRESS]
   common.Traffic traffic = 4;
   // AccPorts: access port set(s)
@@ -419,13 +419,13 @@ message CidrSgRulesResp {
 message FindSgSgRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
-      required: ["SgI", "SgE"]
+      required: ["Sg", "SgLocal"]
     }
   };
-  //scope SgI name item(s)
-  repeated string SgI = 1;
-  //scope SgE name item(s)
-  repeated string SgE = 2;
+  //scope Sg name item(s)
+  repeated string Sg = 1;
+  //scope SgLocal name item(s)
+  repeated string SgLocal = 2;
 }
 
 // SgSgRulesResp: SG-SG-[INGRESS, EGRESS] rule(s) resp
