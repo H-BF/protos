@@ -113,6 +113,8 @@ message FqdnRule {
   repeated AccPorts ports = 4;
   //logs: switch-{ON|OFF} logs in rules
   bool logs = 5;
+  //protocols: L7 protocol list
+  repeated string protocols = 6;
 }
 
 // SG:ICMP type rule
@@ -266,12 +268,19 @@ message ListSecurityGroupsResp{
 message SyncReq {
   //SyncOp: sync operation
   enum SyncOp {
+    //NoOp: it meand there is no operation defined as default
+    NoOp = 0;
+
+    reserved 1 to 3;
+
     //FullSync: Delete+Insert+Update operations (default)
-    FullSync = 0;
+    FullSync = 4;
+
     //Upsert: Insert+Update operations
-    Upsert = 1;
+    Upsert = 5;
+
     //Delete: Delete operation
-    Delete = 2;
+    Delete = 6;
   }
   //sync operation to apply to
   SyncOp sync_op = 1;
