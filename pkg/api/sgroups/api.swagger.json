@@ -90,6 +90,39 @@
         ]
       }
     },
+    "/v1/ie-sg-sg-icmp/rules": {
+      "post": {
+        "description": "FindSgSgIcmpRules: finds SG-SG-[INGRESS+EGRESS]:ICMP rule(s) scoped by variety SG-\u003cFROM|TO\u003e",
+        "operationId": "SecGroupService_FindIESgSgIcmpRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sgroupsIESgSgIcmpRulesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sgroupsFindIESgSgIcmpRulesReq"
+            }
+          }
+        ],
+        "tags": [
+          "SecGroupService"
+        ]
+      }
+    },
     "/v1/ie-sg-sg/rules": {
       "post": {
         "description": "FindSgSgRules: finds SG-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG-\u003cFROM|TO\u003e",
@@ -657,6 +690,30 @@
         "sgFrom"
       ]
     },
+    "sgroupsFindIESgSgIcmpRulesReq": {
+      "type": "object",
+      "properties": {
+        "Sg": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope Sg name item(s)"
+        },
+        "SgLocal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope SgLocal name item(s)"
+        }
+      },
+      "title": "FindIESgSgIcmpRulesReq: req to find all SG-SG-[INGRESS|EGRESS]:ICMP rule(s)",
+      "required": [
+        "Sg",
+        "SgLocal"
+      ]
+    },
     "sgroupsFindRulesReq": {
       "type": "object",
       "properties": {
@@ -811,6 +868,55 @@
         }
       },
       "title": "GetSgSubnetsResp: Networks related to Security Group resp"
+    },
+    "sgroupsIESgSgIcmpRule": {
+      "type": "object",
+      "properties": {
+        "Sg": {
+          "type": "string",
+          "title": "Security group name"
+        },
+        "SgLocal": {
+          "type": "string",
+          "title": "Security group name"
+        },
+        "traffic": {
+          "$ref": "#/definitions/commonTraffic",
+          "title": "traffic direction [INGERSS, EGRESS]"
+        },
+        "ICMP": {
+          "$ref": "#/definitions/commonICMP",
+          "title": "ICMP spec"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "trace": {
+          "type": "boolean",
+          "title": "trace: switch-{ON|OFF} trace in rules"
+        }
+      },
+      "title": "SG-SG:ICMP \u003cin|e\u003egress type rule",
+      "required": [
+        "Sg",
+        "SgLocal",
+        "traffic",
+        "ICMP.IPv"
+      ]
+    },
+    "sgroupsIESgSgIcmpRulesResp": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsIESgSgIcmpRule"
+          },
+          "title": "IESgSgRule rule item(s)"
+        }
+      },
+      "title": "IESgSgIcmpRulesResp: SG-SG-[INGRESS|EGRESS]:ICMP rule(s) resp"
     },
     "sgroupsListNetworksReq": {
       "type": "object",
@@ -1115,6 +1221,19 @@
       },
       "title": "SyncFqdnRules: subject of Security Group Rules to Sync"
     },
+    "sgroupsSyncIESgSgIcmpRules": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsIESgSgIcmpRule"
+          },
+          "title": "SG-SG icmp rules"
+        }
+      },
+      "title": "SyncIESgSgIcmpRules: subject of SG-SG-[INGRESS|EGRESS] to Sync"
+    },
     "sgroupsSyncNetworks": {
       "type": "object",
       "properties": {
@@ -1166,6 +1285,10 @@
         "sgSgRules": {
           "$ref": "#/definitions/sgroupsSyncSgSgRules",
           "title": "subject of SG-SG-[INGERSS,EGRESS] rule(s)"
+        },
+        "ieSgSgIcmpRules": {
+          "$ref": "#/definitions/sgroupsSyncIESgSgIcmpRules",
+          "title": "subject of SG-SG-[INGRESS,EGRESS]:ICMP rule(s)"
         }
       },
       "title": "SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]"
