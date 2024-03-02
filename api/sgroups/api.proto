@@ -166,6 +166,27 @@ message CidrSgRule {
   bool trace = 7;
 }
 
+// CIDR-SG ICMP <in|e>gress type rule
+message CidrSgIcmpRule {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["CIDR", "SG", "traffic", "ICMP.IPv"]
+    }
+  };
+  // CIDR subnetwork IPv4|IPv6
+  string CIDR = 1;
+  // SG security group name
+  string SG = 2;
+  // traffic direction [INGERSS, EGRESS]
+  common.Traffic traffic = 3;
+  // ICMP spec
+  common.ICMP ICMP = 4;
+  //logs: switch-{ON|OFF} logs in rules
+  bool logs = 6;
+  //trace: switch-{ON|OFF} logs in rules
+  bool trace = 7;
+}
+
 // SG-SG <in|e>gress type rule
 message SgSgRule {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -261,10 +282,16 @@ message SyncSgSgRules {
   repeated SgSgRule rules = 1;
 }
 
-//SyncIESgSgIcmpRules: subject of SG-SG-[INGRESS|EGRESS] to Sync
+//SyncIESgSgIcmpRules: subject of SG-SG-[INGRESS|EGRESS]:ICMP to Sync
 message SyncIESgSgIcmpRules {
   // SG-SG icmp rules
   repeated IESgSgIcmpRule rules = 1;
+}
+
+//SyncCidrSgIcmpRules: subject of CIDR-SG-[INGRESS|EGRESS]:ICMP to Sync
+message SyncCidrSgIcmpRules {
+  // CIDR-SG icmp rules
+  repeated CidrSgIcmpRule rules = 1;
 }
 
 //ListNetworksReq: req to list Networks
@@ -331,6 +358,8 @@ message SyncReq {
       SyncSgSgRules sg_sg_rules = 9;
       //subject of SG-SG-[INGRESS,EGRESS]:ICMP rule(s)
       SyncIESgSgIcmpRules ie_sg_sg_icmp_rules = 10;
+      // subject of CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s)
+      SyncCidrSgIcmpRules cidr_sg_imcp_rules = 11;
   }
 }
 
@@ -491,6 +520,23 @@ message IESgSgIcmpRulesResp {
   repeated IESgSgIcmpRule rules = 1;
 }
 
+// FindCidrSgIcmpRulesReq: req to find all CIDR-SG-[INGRESS|EGRESS]:ICMP rules(s) scoped by SG(s) variety
+message FindCidrSgIcmpRulesReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["sg"]
+    }
+  };
+  //scope SG name item(s)
+  repeated string sg = 1;
+}
+
+// CidrSgIcmpRulesResp: CIDR-SG-[INGRESS|EGRESS]:ICMP rules(s) resp
+message CidrSgIcmpRulesResp {
+  // CidrSgIcmpRule rule item(s)
+  repeated CidrSgIcmpRule rules = 1;
+}
+
 //GetSecGroupForAddressReq: req to get Security Group by IP or CIDR
 message GetSecGroupForAddressReq{
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -635,6 +681,16 @@ service SecGroupService {
        description: "FindSgSgIcmpRules: finds SG-SG-[INGRESS+EGRESS]:ICMP rule(s) scoped by variety SG-<FROM|TO>"
      };
    };
+
+  rpc FindCidrSgIcmpRules(FindCidrSgIcmpRulesReq) returns (CidrSgIcmpRulesResp) {
+    option (google.api.http) = {
+      post: "/v1/cidr-sg-icmp/rules"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "FindCidrSgIcmpRules: finds CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s) scoped by variety SG"
+    };
+  }
    
    rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
      option (google.api.http) = {
