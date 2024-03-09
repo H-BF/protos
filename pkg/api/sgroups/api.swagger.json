@@ -24,6 +24,39 @@
     "application/json"
   ],
   "paths": {
+    "/v1/cidr-sg-icmp/rules": {
+      "post": {
+        "description": "FindCidrSgIcmpRules: finds CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s) scoped by variety SG",
+        "operationId": "SecGroupService_FindCidrSgIcmpRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sgroupsCidrSgIcmpRulesResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sgroupsFindCidrSgIcmpRulesReq"
+            }
+          }
+        ],
+        "tags": [
+          "SecGroupService"
+        ]
+      }
+    },
     "/v1/cird-sg/rules": {
       "post": {
         "description": "FindCidrSgRules: finds CIDR-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG",
@@ -602,6 +635,55 @@
       },
       "title": "AccPorts: represents Security Group Rule access source-dest ports"
     },
+    "sgroupsCidrSgIcmpRule": {
+      "type": "object",
+      "properties": {
+        "CIDR": {
+          "type": "string",
+          "title": "CIDR subnetwork IPv4|IPv6"
+        },
+        "SG": {
+          "type": "string",
+          "title": "SG security group name"
+        },
+        "traffic": {
+          "$ref": "#/definitions/commonTraffic",
+          "title": "traffic direction [INGERSS, EGRESS]"
+        },
+        "ICMP": {
+          "$ref": "#/definitions/commonICMP",
+          "title": "ICMP spec"
+        },
+        "logs": {
+          "type": "boolean",
+          "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "trace": {
+          "type": "boolean",
+          "title": "trace: switch-{ON|OFF} logs in rules"
+        }
+      },
+      "title": "CIDR-SG ICMP \u003cin|e\u003egress type rule",
+      "required": [
+        "CIDR",
+        "SG",
+        "traffic",
+        "ICMP.IPv"
+      ]
+    },
+    "sgroupsCidrSgIcmpRulesResp": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsCidrSgIcmpRule"
+          },
+          "title": "CidrSgIcmpRule rule item(s)"
+        }
+      },
+      "title": "CidrSgIcmpRulesResp: CIDR-SG-[INGRESS|EGRESS]:ICMP rules(s) resp"
+    },
     "sgroupsCidrSgRule": {
       "type": "object",
       "properties": {
@@ -657,6 +739,22 @@
         }
       },
       "title": "СidrSgRulesResp: CIDR-SG-[INGRESS, EGRESS] rule(s) resp"
+    },
+    "sgroupsFindCidrSgIcmpRulesReq": {
+      "type": "object",
+      "properties": {
+        "sg": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "scope SG name item(s)"
+        }
+      },
+      "title": "FindCidrSgIcmpRulesReq: req to find all CIDR-SG-[INGRESS|EGRESS]:ICMP rules(s) scoped by SG(s) variety",
+      "required": [
+        "sg"
+      ]
     },
     "sgroupsFindCidrSgRulesReq": {
       "type": "object",
@@ -1196,6 +1294,19 @@
       },
       "title": "SgSgRulesResp: SG-SG-[INGRESS, EGRESS] rule(s) resp"
     },
+    "sgroupsSyncCidrSgIcmpRules": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sgroupsCidrSgIcmpRule"
+          },
+          "title": "CIDR-SG icmp rules"
+        }
+      },
+      "title": "SyncCidrSgIcmpRules: subject of CIDR-SG-[INGRESS|EGRESS]:ICMP to Sync"
+    },
     "sgroupsSyncCidrSgRules": {
       "type": "object",
       "properties": {
@@ -1232,7 +1343,7 @@
           "title": "SG-SG icmp rules"
         }
       },
-      "title": "SyncIESgSgIcmpRules: subject of SG-SG-[INGRESS|EGRESS] to Sync"
+      "title": "SyncIESgSgIcmpRules: subject of SG-SG-[INGRESS|EGRESS]:ICMP to Sync"
     },
     "sgroupsSyncNetworks": {
       "type": "object",
@@ -1289,6 +1400,10 @@
         "ieSgSgIcmpRules": {
           "$ref": "#/definitions/sgroupsSyncIESgSgIcmpRules",
           "title": "subject of SG-SG-[INGRESS,EGRESS]:ICMP rule(s)"
+        },
+        "cidrSgImcpRules": {
+          "$ref": "#/definitions/sgroupsSyncCidrSgIcmpRules",
+          "title": "subject of CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s)"
         }
       },
       "title": "SyncReq: request to apply changes in DB for one of subject [Networks|Sucurity Groups|Security Grpups Rules]"
