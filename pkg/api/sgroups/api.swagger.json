@@ -535,17 +535,6 @@
       },
       "title": "NetIP: represents IP-Network type (L3)"
     },
-    "SecGroupDefaultAction": {
-      "type": "string",
-      "enum": [
-        "DEFAULT",
-        "DROP",
-        "ACCEPT"
-      ],
-      "default": "DEFAULT",
-      "description": "- DEFAULT: Default is default action in [DROP|ACCEPT]\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
-      "title": "DefaultAction: represents default action at end of chains for Security Gpoup"
-    },
     "SyncReqSyncOp": {
       "type": "string",
       "enum": [
@@ -661,6 +650,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "CIDR-SG ICMP \u003cin|e\u003egress type rule",
@@ -717,6 +710,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "CIDR-SG NET-SG Ingress Egress type rule",
@@ -739,6 +736,17 @@
         }
       },
       "title": "СidrSgRulesResp: CIDR-SG-[INGRESS, EGRESS] rule(s) resp"
+    },
+    "sgroupsDefaultAction": {
+      "type": "string",
+      "enum": [
+        "DEFAULT",
+        "DROP",
+        "ACCEPT"
+      ],
+      "default": "DEFAULT",
+      "description": "- DEFAULT: Default is default action in [DROP|ACCEPT]\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
+      "title": "DefaultAction: represents default action at end of chains"
     },
     "sgroupsFindCidrSgIcmpRulesReq": {
       "type": "object",
@@ -932,6 +940,10 @@
             "type": "string"
           },
           "title": "protocols: L7 protocol list"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "FqdnRule: represents Security Groups Rule",
@@ -993,6 +1005,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} trace in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "SG-SG:ICMP \u003cin|e\u003egress type rule",
@@ -1110,6 +1126,10 @@
         "logs": {
           "type": "boolean",
           "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "Rule: represents Security Groups Rule",
@@ -1147,7 +1167,7 @@
           "title": "related to security gpoup network(s)"
         },
         "defaultAction": {
-          "$ref": "#/definitions/SecGroupDefaultAction",
+          "$ref": "#/definitions/sgroupsDefaultAction",
           "title": "default_action: represents default rula action"
         },
         "trace": {
@@ -1182,6 +1202,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} trace in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "SG:ICMP type rule"
@@ -1221,6 +1245,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} trace in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "SG-SG:ICMP type rule"
@@ -1271,6 +1299,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsDefaultAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "SG-SG \u003cin|e\u003egress type rule",
