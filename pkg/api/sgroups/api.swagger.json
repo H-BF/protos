@@ -1433,7 +1433,7 @@
           "$ref": "#/definitions/sgroupsSyncIESgSgIcmpRules",
           "title": "subject of SG-SG-[INGRESS,EGRESS]:ICMP rule(s)"
         },
-        "cidrSgImcpRules": {
+        "cidrSgIcmpRules": {
           "$ref": "#/definitions/sgroupsSyncCidrSgIcmpRules",
           "title": "subject of CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s)"
         }

@@ -374,7 +374,7 @@ message SyncReq {
       //subject of SG-SG-[INGRESS,EGRESS]:ICMP rule(s)
       SyncIESgSgIcmpRules ie_sg_sg_icmp_rules = 10;
       // subject of CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s)
-      SyncCidrSgIcmpRules cidr_sg_imcp_rules = 11;
+      SyncCidrSgIcmpRules cidr_sg_icmp_rules = 11;
   }
 }
 
