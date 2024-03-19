@@ -76,6 +76,18 @@ message AccPorts {
   string d = 2;
 }
 
+//RuleAction: represents verdict action for rules
+enum RuleAction {
+  // Undefined verdict action
+  UNDEF = 0;
+
+  //Drops net packet
+  PACKET_DROP = 1;
+
+  //Accepts net packet
+  PACKET_ACCEPT = 2;
+}
+
 //Rule: represents Security Groups Rule
 message Rule {
    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -94,7 +106,7 @@ message Rule {
    //logs: switch-{ON|OFF} logs in rules
    bool logs = 5;
    //action: represents rule action
-   DefaultAction action = 6;
+   RuleAction action = 6;
 }
 
 //FqdnRule: represents Security Groups Rule
@@ -117,7 +129,7 @@ message FqdnRule {
   //protocols: L7 protocol list
   repeated string protocols = 6;
   //action: represents rule action
-  DefaultAction action = 7;
+  RuleAction action = 7;
 }
 
 // SG:ICMP type rule
@@ -131,7 +143,7 @@ message SgIcmpRule {
   //trace: switch-{ON|OFF} trace in rules
   bool trace = 4;
   //action: represents rule action
-  DefaultAction action = 5;
+  RuleAction action = 5;
 }
 
 // SG-SG:ICMP type rule
@@ -147,7 +159,7 @@ message SgSgIcmpRule {
   //trace: switch-{ON|OFF} trace in rules
   bool trace = 5;
   //action: represents rule action
-  DefaultAction action = 6;
+  RuleAction action = 6;
 }
 
 // CIDR-SG NET-SG Ingress Egress type rule
@@ -172,7 +184,7 @@ message CidrSgRule {
   //trace: switch-{ON|OFF} logs in rules
   bool trace = 7;
   //action: represents rule action
-  DefaultAction action = 8;
+  RuleAction action = 8;
 }
 
 // CIDR-SG ICMP <in|e>gress type rule
@@ -195,7 +207,7 @@ message CidrSgIcmpRule {
   //trace: switch-{ON|OFF} logs in rules
   bool trace = 7;
   //action: represents rule action
-  DefaultAction action = 8;
+  RuleAction action = 8;
 }
 
 // SG-SG <in|e>gress type rule
@@ -220,7 +232,7 @@ message SgSgRule {
   // trace: switch-{ON|OFF} logs in rules
   bool trace = 7;
   //action: represents rule action
-  DefaultAction action = 8;
+  RuleAction action = 8;
 }
 
 // SG-SG:ICMP <in|e>gress type rule
@@ -243,7 +255,7 @@ message IESgSgIcmpRule {
   //trace: switch-{ON|OFF} trace in rules
   bool trace = 6;
   //action: represents rule action
-  DefaultAction action = 7;
+  RuleAction action = 7;
 }
 
 //SyncStatusResp: db status after last succeeded Sync

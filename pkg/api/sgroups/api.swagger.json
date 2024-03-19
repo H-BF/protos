@@ -652,7 +652,7 @@
           "title": "trace: switch-{ON|OFF} logs in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -712,7 +712,7 @@
           "title": "trace: switch-{ON|OFF} logs in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -942,7 +942,7 @@
           "title": "protocols: L7 protocol list"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -1007,7 +1007,7 @@
           "title": "trace: switch-{ON|OFF} trace in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -1128,7 +1128,7 @@
           "title": "logs: switch-{ON|OFF} logs in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -1138,6 +1138,17 @@
         "sgTo",
         "transport"
       ]
+    },
+    "sgroupsRuleAction": {
+      "type": "string",
+      "enum": [
+        "UNDEF",
+        "PACKET_DROP",
+        "PACKET_ACCEPT"
+      ],
+      "default": "UNDEF",
+      "description": "- UNDEF: Undefined verdict action\n - PACKET_DROP: Drops net packet\n - PACKET_ACCEPT: Accepts net packet",
+      "title": "RuleAction: represents verdict action for rules"
     },
     "sgroupsRulesResp": {
       "type": "object",
@@ -1204,7 +1215,7 @@
           "title": "trace: switch-{ON|OFF} trace in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -1247,7 +1258,7 @@
           "title": "trace: switch-{ON|OFF} trace in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
@@ -1301,7 +1312,7 @@
           "title": "trace: switch-{ON|OFF} logs in rules"
         },
         "action": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
         }
       },
