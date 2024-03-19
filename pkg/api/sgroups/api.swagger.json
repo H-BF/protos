@@ -535,6 +535,17 @@
       },
       "title": "NetIP: represents IP-Network type (L3)"
     },
+    "SecGroupDefaultAction": {
+      "type": "string",
+      "enum": [
+        "DEFAULT",
+        "DROP",
+        "ACCEPT"
+      ],
+      "default": "DEFAULT",
+      "description": "- DEFAULT: Default is default action in [DROP|ACCEPT]\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
+      "title": "DefaultAction: represents default action at end of chains for Security Gpoup"
+    },
     "SyncReqSyncOp": {
       "type": "string",
       "enum": [
@@ -736,17 +747,6 @@
         }
       },
       "title": "СidrSgRulesResp: CIDR-SG-[INGRESS, EGRESS] rule(s) resp"
-    },
-    "sgroupsDefaultAction": {
-      "type": "string",
-      "enum": [
-        "DEFAULT",
-        "DROP",
-        "ACCEPT"
-      ],
-      "default": "DEFAULT",
-      "description": "- DEFAULT: Default is default action in [DROP|ACCEPT]\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
-      "title": "DefaultAction: represents default action at end of chains"
     },
     "sgroupsFindCidrSgIcmpRulesReq": {
       "type": "object",
@@ -1143,11 +1143,11 @@
       "type": "string",
       "enum": [
         "UNDEF",
-        "PACKET_DROP",
-        "PACKET_ACCEPT"
+        "RULE_DROP",
+        "RULE_ACCEPT"
       ],
       "default": "UNDEF",
-      "description": "- UNDEF: Undefined verdict action\n - PACKET_DROP: Drops net packet\n - PACKET_ACCEPT: Accepts net packet",
+      "description": "- UNDEF: Undefined verdict action\n - RULE_DROP: Drops net packet\n - RULE_ACCEPT: Accepts net packet",
       "title": "RuleAction: represents verdict action for rules"
     },
     "sgroupsRulesResp": {
@@ -1178,7 +1178,7 @@
           "title": "related to security gpoup network(s)"
         },
         "defaultAction": {
-          "$ref": "#/definitions/sgroupsDefaultAction",
+          "$ref": "#/definitions/SecGroupDefaultAction",
           "title": "default_action: represents default rula action"
         },
         "trace": {

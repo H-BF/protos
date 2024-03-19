@@ -37,18 +37,6 @@ message Network {
   common.Networks.NetIP network = 2;
 }
 
-//DefaultAction: represents default action at end of chains
-enum DefaultAction {
-  //Default is default action in [DROP|ACCEPT]
-  DEFAULT = 0;
-
-  //Drops net packet
-  DROP = 1;
-
-  //Accepts net packet
-  ACCEPT = 2;
-}
-
 //SecGroup: represents a security group
 message SecGroup {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -56,6 +44,17 @@ message SecGroup {
       required: ["name"]
     }    
   };
+  //DefaultAction: represents default action at end of chains for Security Gpoup
+  enum DefaultAction {
+    //Default is default action in [DROP|ACCEPT]
+    DEFAULT = 0;
+
+    //Drops net packet
+    DROP = 1;
+
+    //Accepts net packet
+    ACCEPT = 2;
+  }
   //name of security group
   string name = 1;
   //related to security gpoup network(s)
@@ -82,10 +81,10 @@ enum RuleAction {
   UNDEF = 0;
 
   //Drops net packet
-  PACKET_DROP = 1;
+  RULE_DROP = 1;
 
   //Accepts net packet
-  PACKET_ACCEPT = 2;
+  RULE_ACCEPT = 2;
 }
 
 //Rule: represents Security Groups Rule
