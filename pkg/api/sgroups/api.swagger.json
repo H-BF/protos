@@ -1143,11 +1143,11 @@
       "type": "string",
       "enum": [
         "UNDEF",
-        "RULE_DROP",
-        "RULE_ACCEPT"
+        "DROP",
+        "ACCEPT"
       ],
       "default": "UNDEF",
-      "description": "- UNDEF: Undefined verdict action\n - RULE_DROP: Drops net packet\n - RULE_ACCEPT: Accepts net packet",
+      "description": "- UNDEF: Undefined verdict action\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
       "title": "RuleAction: represents verdict action for rules"
     },
     "sgroupsRulesResp": {

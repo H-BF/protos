@@ -77,14 +77,14 @@ message AccPorts {
 
 //RuleAction: represents verdict action for rules
 enum RuleAction {
-  // Undefined verdict action
+  //Undefined verdict action
   UNDEF = 0;
 
   //Drops net packet
-  RULE_DROP = 1;
+  DROP = 1;
 
   //Accepts net packet
-  RULE_ACCEPT = 2;
+  ACCEPT = 2;
 }
 
 //Rule: represents Security Groups Rule
