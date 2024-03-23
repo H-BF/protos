@@ -665,6 +665,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "CIDR-SG ICMP \u003cin|e\u003egress type rule",
@@ -725,6 +729,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "CIDR-SG NET-SG Ingress Egress type rule",
@@ -944,6 +952,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "FqdnRule: represents Security Groups Rule",
@@ -1009,6 +1021,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "SG-SG:ICMP \u003cin|e\u003egress type rule",
@@ -1130,6 +1146,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "Rule: represents Security Groups Rule",
@@ -1149,6 +1169,16 @@
       "default": "UNDEF",
       "description": "- UNDEF: Undefined verdict action\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
       "title": "RuleAction: represents verdict action for rules"
+    },
+    "sgroupsRulePriority": {
+      "type": "object",
+      "properties": {
+        "some": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "RulePriority: represents rule priority or none if we no need use it"
     },
     "sgroupsRulesResp": {
       "type": "object",
@@ -1260,6 +1290,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "SG-SG:ICMP type rule"

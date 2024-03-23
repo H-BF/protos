@@ -87,6 +87,13 @@ enum RuleAction {
   ACCEPT = 2;
 }
 
+//RulePriority: represents rule priority or none if we no need use it
+message RulePriority {
+  oneof value {
+    int32 some = 1;
+  }  
+}
+
 //Rule: represents Security Groups Rule
 message Rule {
    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -106,6 +113,8 @@ message Rule {
    bool logs = 5;
    //action: represents rule action
    RuleAction action = 6;
+   //priority: rule priority affects on rule pos in its rule list
+   RulePriority priority = 7;
 }
 
 //FqdnRule: represents Security Groups Rule
@@ -129,6 +138,8 @@ message FqdnRule {
   repeated string protocols = 6;
   //action: represents rule action
   RuleAction action = 7;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 8;
 }
 
 // SG:ICMP type rule
@@ -159,6 +170,8 @@ message SgSgIcmpRule {
   bool trace = 5;
   //action: represents rule action
   RuleAction action = 6;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 7;
 }
 
 // CIDR-SG NET-SG Ingress Egress type rule
@@ -184,6 +197,8 @@ message CidrSgRule {
   bool trace = 7;
   //action: represents rule action
   RuleAction action = 8;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 9;
 }
 
 // CIDR-SG ICMP <in|e>gress type rule
@@ -207,6 +222,8 @@ message CidrSgIcmpRule {
   bool trace = 7;
   //action: represents rule action
   RuleAction action = 8;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 9;
 }
 
 // SG-SG <in|e>gress type rule
@@ -255,6 +272,8 @@ message IESgSgIcmpRule {
   bool trace = 6;
   //action: represents rule action
   RuleAction action = 7;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 8;
 }
 
 //SyncStatusResp: db status after last succeeded Sync

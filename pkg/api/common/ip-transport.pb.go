@@ -121,7 +121,7 @@ func (Traffic) EnumDescriptor() ([]byte, []int) {
 	return file_common_ip_transport_proto_rawDescGZIP(), []int{1}
 }
 
-// Transport: represents net transport (L4)
+//Transport: represents net transport (L4)
 type Networks_NetIP_Transport int32
 
 const (
@@ -168,7 +168,7 @@ func (Networks_NetIP_Transport) EnumDescriptor() ([]byte, []int) {
 	return file_common_ip_transport_proto_rawDescGZIP(), []int{0, 0, 0}
 }
 
-// Networks: represents network types
+//Networks: represents network types
 type Networks struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -263,13 +263,13 @@ func (x *ICMP) GetTypes() []uint32 {
 	return nil
 }
 
-// NetIP: represents IP-Network type (L3)
+//NetIP: represents IP-Network type (L3)
 type Networks_NetIP struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// CIDR: IP range
+	//CIDR: IP range
 	CIDR string `protobuf:"bytes,1,opt,name=CIDR,proto3" json:"CIDR,omitempty"`
 }
 
@@ -312,15 +312,15 @@ func (x *Networks_NetIP) GetCIDR() string {
 	return ""
 }
 
-// PortRange: port [from - to] range
+//PortRange: port [from - to] range
 type Networks_NetIP_PortRange struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// range left bound
+	//range left bound
 	From uint32 `protobuf:"varint,1,opt,name=from,proto3" json:"from,omitempty"`
-	// range right bound
+	//range right bound
 	To uint32 `protobuf:"varint,2,opt,name=to,proto3" json:"to,omitempty"`
 }
 
