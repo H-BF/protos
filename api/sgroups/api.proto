@@ -249,6 +249,8 @@ message SgSgRule {
   bool trace = 7;
   //action: represents rule action
   RuleAction action = 8;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 9;
 }
 
 // SG-SG:ICMP <in|e>gress type rule

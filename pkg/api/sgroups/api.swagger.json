@@ -1348,6 +1348,10 @@
         "action": {
           "$ref": "#/definitions/sgroupsRuleAction",
           "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "SG-SG \u003cin|e\u003egress type rule",
