@@ -37,8 +37,6 @@ message Network {
   common.Networks.NetIP network = 2;
 }
 
-
-
 //SecGroup: represents a security group
 message SecGroup {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
@@ -47,15 +45,15 @@ message SecGroup {
     }    
   };
   //DefaultAction: represents default action at end of chains for Security Gpoup
-  enum DefaultAction {  
-     //Default is default action in [DROP|ACCEPT]
-     DEFAULT = 0;
+  enum DefaultAction {
+    //Default is default action in [DROP|ACCEPT]
+    DEFAULT = 0;
 
-     //Drops net packet
-     DROP = 1;
+    //Drops net packet
+    DROP = 1;
 
-     //Accepts net packet
-     ACCEPT = 2;
+    //Accepts net packet
+    ACCEPT = 2;
   }
   //name of security group
   string name = 1;
@@ -77,13 +75,32 @@ message AccPorts {
   string d = 2;
 }
 
+//RuleAction: represents verdict action for rules
+enum RuleAction {
+  //Undefined verdict action
+  UNDEF = 0;
+
+  //Drops net packet
+  DROP = 1;
+
+  //Accepts net packet
+  ACCEPT = 2;
+}
+
+//RulePriority: represents rule priority or none if we no need use it
+message RulePriority {
+  oneof value {
+    int32 some = 1;
+  }  
+}
+
 //Rule: represents Security Groups Rule
-message Rule {   
+message Rule {
    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-      json_schema: {      
+      json_schema: {
         required: ["sg_from", "sg_to", "transport"]
-      }    
-   };   
+      }
+   };
    //security group at client
    string sg_from = 1;
    //security group at server
@@ -94,27 +111,35 @@ message Rule {
    repeated AccPorts ports = 4;
    //logs: switch-{ON|OFF} logs in rules
    bool logs = 5;
+   //action: represents rule action
+   RuleAction action = 6;
+   //priority: rule priority affects on rule pos in its rule list
+   RulePriority priority = 7;
 }
 
 //FqdnRule: represents Security Groups Rule
-message FqdnRule {   
+message FqdnRule {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-     json_schema: {      
+     json_schema: {
        required: ["sg_from", "FQDN", "transport"]
-     }    
-  };   
+     }
+  };
   //security group at client
   string sg_from = 1;
-  //FQDN full qualified domain name portable for DNS queries 
+  //FQDN full qualified domain name portable for DNS queries
   string FQDN = 2;
   //ip net transport
-  common.Networks.NetIP.Transport transport = 3;   
+  common.Networks.NetIP.Transport transport = 3;
   //access ports set
   repeated AccPorts ports = 4;
   //logs: switch-{ON|OFF} logs in rules
   bool logs = 5;
   //protocols: L7 protocol list
   repeated string protocols = 6;
+  //action: represents rule action
+  RuleAction action = 7;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 8;
 }
 
 // SG:ICMP type rule
@@ -126,12 +151,14 @@ message SgIcmpRule {
   //logs: switch-{ON|OFF} logs in rules
   bool logs = 3;
   //trace: switch-{ON|OFF} trace in rules
-  bool trace = 4; 
+  bool trace = 4;
+  //action: represents rule action
+  RuleAction action = 5;
 }
 
 // SG-SG:ICMP type rule
 message SgSgIcmpRule {
-  // Security group name 
+  // Security group name
   string SgFrom = 1;
   // Security group name 
   string SgTo = 2;
@@ -140,7 +167,11 @@ message SgSgIcmpRule {
   //logs: switch-{ON|OFF} logs in rules
   bool logs = 4;
   //trace: switch-{ON|OFF} trace in rules
-  bool trace = 5; 
+  bool trace = 5;
+  //action: represents rule action
+  RuleAction action = 6;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 7;
 }
 
 // CIDR-SG NET-SG Ingress Egress type rule
@@ -164,6 +195,10 @@ message CidrSgRule {
   bool logs = 6;
   //trace: switch-{ON|OFF} logs in rules
   bool trace = 7;
+  //action: represents rule action
+  RuleAction action = 8;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 9;
 }
 
 // CIDR-SG ICMP <in|e>gress type rule
@@ -185,6 +220,10 @@ message CidrSgIcmpRule {
   bool logs = 6;
   //trace: switch-{ON|OFF} logs in rules
   bool trace = 7;
+  //action: represents rule action
+  RuleAction action = 8;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 9;
 }
 
 // SG-SG <in|e>gress type rule
@@ -208,6 +247,10 @@ message SgSgRule {
   bool logs = 6;
   // trace: switch-{ON|OFF} logs in rules
   bool trace = 7;
+  //action: represents rule action
+  RuleAction action = 8;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 9;
 }
 
 // SG-SG:ICMP <in|e>gress type rule
@@ -229,6 +272,10 @@ message IESgSgIcmpRule {
   bool logs = 5;
   //trace: switch-{ON|OFF} trace in rules
   bool trace = 6;
+  //action: represents rule action
+  RuleAction action = 7;
+  //priority: rule priority affects on rule pos in its rule list
+  RulePriority priority = 8;
 }
 
 //SyncStatusResp: db status after last succeeded Sync

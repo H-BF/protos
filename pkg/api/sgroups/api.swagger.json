@@ -569,7 +569,8 @@
           "items": {
             "type": "integer",
             "format": "int64"
-          }
+          },
+          "title": "ICMP message types"
         }
       },
       "title": "IP/ICMP protocol"
@@ -582,6 +583,7 @@
         "IPv6"
       ],
       "default": "_",
+      "description": "- IPv4: IPv4\n - IPv6: IPv6",
       "title": "IP Anddress family"
     },
     "commonTraffic": {
@@ -592,6 +594,7 @@
         "Egress"
       ],
       "default": "Undef",
+      "description": "- Undef: undefined tfaffic direction\n - Ingress: Ingress\n - Egress: Egress",
       "title": "Ingress / Egress traffic dir"
     },
     "protobufAny": {
@@ -616,6 +619,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -661,6 +665,14 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "CIDR-SG ICMP \u003cin|e\u003egress type rule",
@@ -677,6 +689,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgIcmpRule"
           },
           "title": "CidrSgIcmpRule rule item(s)"
@@ -706,6 +719,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "AccPorts: access port set(s)"
@@ -717,6 +731,14 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "CIDR-SG NET-SG Ingress Egress type rule",
@@ -733,6 +755,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgRule"
           },
           "title": "СidrSgRules rule item(s)"
@@ -918,6 +941,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "access ports set"
@@ -932,6 +956,14 @@
             "type": "string"
           },
           "title": "protocols: L7 protocol list"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "FqdnRule: represents Security Groups Rule",
@@ -947,6 +979,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsFqdnRule"
           },
           "title": "FQDN rule(s) items"
@@ -960,6 +993,7 @@
         "networks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsNetwork"
           },
           "title": "network items"
@@ -993,6 +1027,14 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} trace in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "SG-SG:ICMP \u003cin|e\u003egress type rule",
@@ -1009,6 +1051,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsIESgSgIcmpRule"
           },
           "title": "IESgSgRule rule item(s)"
@@ -1035,6 +1078,7 @@
         "networks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsNetwork"
           },
           "title": "network items"
@@ -1061,6 +1105,7 @@
         "groups": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSecGroup"
           },
           "title": "security group items"
@@ -1103,6 +1148,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "access ports set"
@@ -1110,6 +1156,14 @@
         "logs": {
           "type": "boolean",
           "title": "logs: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "Rule: represents Security Groups Rule",
@@ -1119,12 +1173,34 @@
         "transport"
       ]
     },
+    "sgroupsRuleAction": {
+      "type": "string",
+      "enum": [
+        "UNDEF",
+        "DROP",
+        "ACCEPT"
+      ],
+      "default": "UNDEF",
+      "description": "- UNDEF: Undefined verdict action\n - DROP: Drops net packet\n - ACCEPT: Accepts net packet",
+      "title": "RuleAction: represents verdict action for rules"
+    },
+    "sgroupsRulePriority": {
+      "type": "object",
+      "properties": {
+        "some": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "RulePriority: represents rule priority or none if we no need use it"
+    },
     "sgroupsRulesResp": {
       "type": "object",
       "properties": {
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsRule"
           },
           "title": "SG rule(s) items"
@@ -1182,6 +1258,10 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} trace in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
         }
       },
       "title": "SG:ICMP type rule"
@@ -1192,6 +1272,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgIcmpRule"
           },
           "title": "SgIcmp rule item(s)"
@@ -1221,6 +1302,14 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} trace in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "SG-SG:ICMP type rule"
@@ -1231,6 +1320,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgIcmpRule"
           },
           "title": "SgSgIcmp rule item(s)"
@@ -1260,6 +1350,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "AccPorts: access port set(s)"
@@ -1271,6 +1362,14 @@
         "trace": {
           "type": "boolean",
           "title": "trace: switch-{ON|OFF} logs in rules"
+        },
+        "action": {
+          "$ref": "#/definitions/sgroupsRuleAction",
+          "title": "action: represents rule action"
+        },
+        "priority": {
+          "$ref": "#/definitions/sgroupsRulePriority",
+          "title": "priority: rule priority affects on rule pos in its rule list"
         }
       },
       "title": "SG-SG \u003cin|e\u003egress type rule",
@@ -1287,6 +1386,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgRule"
           },
           "title": "SgSgRule rule item(s)"
@@ -1300,6 +1400,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgIcmpRule"
           },
           "title": "CIDR-SG icmp rules"
@@ -1313,6 +1414,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgRule"
           }
         }
@@ -1325,6 +1427,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsFqdnRule"
           },
           "title": "fqdn rules items"
@@ -1338,6 +1441,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsIESgSgIcmpRule"
           },
           "title": "SG-SG icmp rules"
@@ -1351,6 +1455,7 @@
         "networks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsNetwork"
           },
           "title": "network items"
@@ -1414,6 +1519,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsRule"
           },
           "title": "security group rules items"
@@ -1427,6 +1533,7 @@
         "groups": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSecGroup"
           },
           "title": "security group items"
@@ -1440,6 +1547,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgIcmpRule"
           }
         }
@@ -1452,6 +1560,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgIcmpRule"
           }
         }
@@ -1464,6 +1573,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgRule"
           },
           "title": "SG-SG rules"
