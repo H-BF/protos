@@ -569,7 +569,8 @@
           "items": {
             "type": "integer",
             "format": "int64"
-          }
+          },
+          "title": "ICMP message types"
         }
       },
       "title": "IP/ICMP protocol"
@@ -582,6 +583,7 @@
         "IPv6"
       ],
       "default": "_",
+      "description": "- IPv4: IPv4\n - IPv6: IPv6",
       "title": "IP Anddress family"
     },
     "commonTraffic": {
@@ -592,6 +594,7 @@
         "Egress"
       ],
       "default": "Undef",
+      "description": "- Undef: undefined tfaffic direction\n - Ingress: Ingress\n - Egress: Egress",
       "title": "Ingress / Egress traffic dir"
     },
     "protobufAny": {
@@ -616,6 +619,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -685,6 +689,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgIcmpRule"
           },
           "title": "CidrSgIcmpRule rule item(s)"
@@ -714,6 +719,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "AccPorts: access port set(s)"
@@ -749,6 +755,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgRule"
           },
           "title": "СidrSgRules rule item(s)"
@@ -934,6 +941,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "access ports set"
@@ -971,6 +979,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsFqdnRule"
           },
           "title": "FQDN rule(s) items"
@@ -984,6 +993,7 @@
         "networks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsNetwork"
           },
           "title": "network items"
@@ -1041,6 +1051,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsIESgSgIcmpRule"
           },
           "title": "IESgSgRule rule item(s)"
@@ -1067,6 +1078,7 @@
         "networks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsNetwork"
           },
           "title": "network items"
@@ -1093,6 +1105,7 @@
         "groups": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSecGroup"
           },
           "title": "security group items"
@@ -1135,6 +1148,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "access ports set"
@@ -1186,6 +1200,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsRule"
           },
           "title": "SG rule(s) items"
@@ -1257,6 +1272,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgIcmpRule"
           },
           "title": "SgIcmp rule item(s)"
@@ -1304,6 +1320,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgIcmpRule"
           },
           "title": "SgSgIcmp rule item(s)"
@@ -1333,6 +1350,7 @@
         "ports": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsAccPorts"
           },
           "title": "AccPorts: access port set(s)"
@@ -1368,6 +1386,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgRule"
           },
           "title": "SgSgRule rule item(s)"
@@ -1381,6 +1400,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgIcmpRule"
           },
           "title": "CIDR-SG icmp rules"
@@ -1394,6 +1414,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsCidrSgRule"
           }
         }
@@ -1406,6 +1427,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsFqdnRule"
           },
           "title": "fqdn rules items"
@@ -1419,6 +1441,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsIESgSgIcmpRule"
           },
           "title": "SG-SG icmp rules"
@@ -1432,6 +1455,7 @@
         "networks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsNetwork"
           },
           "title": "network items"
@@ -1495,6 +1519,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsRule"
           },
           "title": "security group rules items"
@@ -1508,6 +1533,7 @@
         "groups": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSecGroup"
           },
           "title": "security group items"
@@ -1521,6 +1547,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgIcmpRule"
           }
         }
@@ -1533,6 +1560,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgIcmpRule"
           }
         }
@@ -1545,6 +1573,7 @@
         "rules": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/sgroupsSgSgRule"
           },
           "title": "SG-SG rules"
