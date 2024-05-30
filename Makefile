@@ -7,6 +7,7 @@ export GOBIN=$(CURDIR)/bin
 GOLANGCI_BIN?=$(GOBIN)/golangci-lint
 GOLANGCI_REPO?=https://github.com/golangci/golangci-lint
 GOLANGCI_LATEST_VERSION?= $(shell git ls-remote --tags --refs --sort='v:refname' $(GOLANGCI_REPO)|tail -1|egrep -o "v[0-9]+.*")
+GO?=$(shell which go)
 
 ifneq ($(wildcard $(GOLANGCI_BIN)),)
 	GOLANGCI_CUR_VERSION:=v$(shell $(GOLANGCI_BIN) --version|sed -E 's/.* version (.*) built from .* on .*/\1/g')
@@ -15,8 +16,8 @@ else
 endif
 
 # install linter tool
-.PHONY: install-linter
-install-linter:
+.PHONY: .install-linter
+.install-linter:
 ifeq ($(filter $(GOLANGCI_CUR_VERSION), $(GOLANGCI_LATEST_VERSION)),)
 	$(info Installing GOLANGCI-LINT $(GOLANGCI_LATEST_VERSION)...)
 	@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s $(GOLANGCI_LATEST_VERSION)
@@ -28,43 +29,50 @@ endif
 
 # run full lint like in pipeline
 .PHONY: lint
-lint: | go-deps install-linter
+lint: | go-deps .install-linter
 	@echo Full lint... && \
 	$(GOLANGCI_BIN) cache clean && \
-	$(GOLANGCI_BIN) run --config=$(CURDIR)/.golangci.yaml -v $(CURDIR)/... &&\
+	$(GOLANGCI_BIN) run --config=$(CURDIR)/.golangci.yaml -v $(CURDIR)/... && \
 	echo -=OK=-
 
 # install project dependencies
 .PHONY: go-deps
 go-deps:
-	@echo Check go modules dependencies... &&\
-	go mod tidy && go mod vendor && go mod verify &&\
+	@echo Check go modules dependencies... && \
+	$(GO) mod tidy && go mod vendor && go mod verify && \
 	echo -=OK=-
 
 
-.PHONY: bin-tools
-bin-tools:
+#connectrpc.com/connect
+#go install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
+
+.PHONY: .grpc-plugins
+.grpc-plugins:
+	@echo - ensure GRPC plugins are installed
 ifeq ($(wildcard $(GOBIN)/protoc-gen-grpc-gateway),)
-	@echo Install \"protoc-gen-grpc-gateway\"
-	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
+	@echo install \"protoc-gen-grpc-gateway\" && \
+	$(GO) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
 endif
 ifeq ($(wildcard $(GOBIN)/protoc-gen-openapiv2),)
-	@echo Install \"protoc-gen-openapiv2\"
-	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
+	@echo install \"protoc-gen-openapiv2\" && \
+	$(GO) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 endif
 ifeq ($(wildcard $(GOBIN)/protoc-gen-go),)
-	@echo Install \"protoc-gen-go\"
-	@go install google.golang.org/protobuf/cmd/protoc-gen-go
+	@echo install \"protoc-gen-go\" && \
+	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go
 endif
 ifeq ($(wildcard $(GOBIN)/protoc-gen-go-grpc),)
-	@echo Install \"protoc-gen-go-grpc\"
-	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
+	@echo install \"protoc-gen-go-grpc\" && \
+	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc
 endif
-	@echo 0 > /dev/null
+ifeq ($(wildcard $(GOBIN)/protoc-gen-connect-go),)
+	@echo install \"protoc-gen-connect-go\" && \
+	$(GO) install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
+endif
 
 proto_dirs := sgroups common
 .PHONY: generate-api
-generate-api:
+generate-api: | .grpc-plugins
 	@(\
 	apis=$(CURDIR)/api && \
 	dest=$(CURDIR)/pkg/api && \
@@ -89,6 +97,8 @@ generate-api:
 				--grpc-gateway_opt standalone=false \
 				--openapiv2_out $$dest \
 				--openapiv2_opt logtostderr=true \
+				--connect-go_out=$$dest \
+				--connect-go_opt=paths=source_relative \
 				"$$v" ||\
 			exit 1;\
 		done; \
@@ -99,7 +109,7 @@ generate-api:
 
 .PHONY: test
 test:
-	$(info Running tests...)
-	@go clean -testcache && go test -v ./...
+	@echo Running tests... && \
+	$(GO) clean -testcache && go test -v ./...
 
 
