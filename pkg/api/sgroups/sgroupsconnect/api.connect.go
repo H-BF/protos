@@ -23,7 +23,7 @@ const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// SecGroupServiceName is the fully-qualified name of the SecGroupService service.
-	SecGroupServiceName = "hbf.v1.sgroups.SecGroupService"
+	SecGroupServiceName = "hbf.v2.sgroups.SecGroupService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -35,52 +35,52 @@ const (
 // period.
 const (
 	// SecGroupServiceSyncProcedure is the fully-qualified name of the SecGroupService's Sync RPC.
-	SecGroupServiceSyncProcedure = "/hbf.v1.sgroups.SecGroupService/Sync"
+	SecGroupServiceSyncProcedure = "/hbf.v2.sgroups.SecGroupService/Sync"
 	// SecGroupServiceSyncStatusProcedure is the fully-qualified name of the SecGroupService's
 	// SyncStatus RPC.
-	SecGroupServiceSyncStatusProcedure = "/hbf.v1.sgroups.SecGroupService/SyncStatus"
+	SecGroupServiceSyncStatusProcedure = "/hbf.v2.sgroups.SecGroupService/SyncStatus"
 	// SecGroupServiceSyncStatusesProcedure is the fully-qualified name of the SecGroupService's
 	// SyncStatuses RPC.
-	SecGroupServiceSyncStatusesProcedure = "/hbf.v1.sgroups.SecGroupService/SyncStatuses"
+	SecGroupServiceSyncStatusesProcedure = "/hbf.v2.sgroups.SecGroupService/SyncStatuses"
 	// SecGroupServiceListNetworksProcedure is the fully-qualified name of the SecGroupService's
 	// ListNetworks RPC.
-	SecGroupServiceListNetworksProcedure = "/hbf.v1.sgroups.SecGroupService/ListNetworks"
+	SecGroupServiceListNetworksProcedure = "/hbf.v2.sgroups.SecGroupService/ListNetworks"
 	// SecGroupServiceListSecurityGroupsProcedure is the fully-qualified name of the SecGroupService's
 	// ListSecurityGroups RPC.
-	SecGroupServiceListSecurityGroupsProcedure = "/hbf.v1.sgroups.SecGroupService/ListSecurityGroups"
+	SecGroupServiceListSecurityGroupsProcedure = "/hbf.v2.sgroups.SecGroupService/ListSecurityGroups"
 	// SecGroupServiceGetSgSubnetsProcedure is the fully-qualified name of the SecGroupService's
 	// GetSgSubnets RPC.
-	SecGroupServiceGetSgSubnetsProcedure = "/hbf.v1.sgroups.SecGroupService/GetSgSubnets"
+	SecGroupServiceGetSgSubnetsProcedure = "/hbf.v2.sgroups.SecGroupService/GetSgSubnets"
 	// SecGroupServiceGetRulesProcedure is the fully-qualified name of the SecGroupService's GetRules
 	// RPC.
-	SecGroupServiceGetRulesProcedure = "/hbf.v1.sgroups.SecGroupService/GetRules"
+	SecGroupServiceGetRulesProcedure = "/hbf.v2.sgroups.SecGroupService/GetRules"
 	// SecGroupServiceFindRulesProcedure is the fully-qualified name of the SecGroupService's FindRules
 	// RPC.
-	SecGroupServiceFindRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindRules"
+	SecGroupServiceFindRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindRules"
 	// SecGroupServiceFindFqdnRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindFqdnRules RPC.
-	SecGroupServiceFindFqdnRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindFqdnRules"
+	SecGroupServiceFindFqdnRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindFqdnRules"
 	// SecGroupServiceFindSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindSgIcmpRules RPC.
-	SecGroupServiceFindSgIcmpRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindSgIcmpRules"
+	SecGroupServiceFindSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindSgIcmpRules"
 	// SecGroupServiceFindSgSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindSgSgIcmpRules RPC.
-	SecGroupServiceFindSgSgIcmpRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindSgSgIcmpRules"
+	SecGroupServiceFindSgSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindSgSgIcmpRules"
 	// SecGroupServiceFindCidrSgRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindCidrSgRules RPC.
-	SecGroupServiceFindCidrSgRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindCidrSgRules"
+	SecGroupServiceFindCidrSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindCidrSgRules"
 	// SecGroupServiceFindSgSgRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindSgSgRules RPC.
-	SecGroupServiceFindSgSgRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindSgSgRules"
+	SecGroupServiceFindSgSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindSgSgRules"
 	// SecGroupServiceFindIESgSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindIESgSgIcmpRules RPC.
-	SecGroupServiceFindIESgSgIcmpRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindIESgSgIcmpRules"
+	SecGroupServiceFindIESgSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindIESgSgIcmpRules"
 	// SecGroupServiceFindCidrSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindCidrSgIcmpRules RPC.
-	SecGroupServiceFindCidrSgIcmpRulesProcedure = "/hbf.v1.sgroups.SecGroupService/FindCidrSgIcmpRules"
+	SecGroupServiceFindCidrSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindCidrSgIcmpRules"
 	// SecGroupServiceGetSecGroupForAddressProcedure is the fully-qualified name of the
 	// SecGroupService's GetSecGroupForAddress RPC.
-	SecGroupServiceGetSecGroupForAddressProcedure = "/hbf.v1.sgroups.SecGroupService/GetSecGroupForAddress"
+	SecGroupServiceGetSecGroupForAddressProcedure = "/hbf.v2.sgroups.SecGroupService/GetSecGroupForAddress"
 )
 
 // These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
@@ -104,7 +104,7 @@ var (
 	secGroupServiceGetSecGroupForAddressMethodDescriptor = secGroupServiceServiceDescriptor.Methods().ByName("GetSecGroupForAddress")
 )
 
-// SecGroupServiceClient is a client for the hbf.v1.sgroups.SecGroupService service.
+// SecGroupServiceClient is a client for the hbf.v2.sgroups.SecGroupService service.
 type SecGroupServiceClient interface {
 	Sync(context.Context, *connect.Request[sgroups.SyncReq]) (*connect.Response[emptypb.Empty], error)
 	SyncStatus(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[sgroups.SyncStatusResp], error)
@@ -124,7 +124,7 @@ type SecGroupServiceClient interface {
 	GetSecGroupForAddress(context.Context, *connect.Request[sgroups.GetSecGroupForAddressReq]) (*connect.Response[sgroups.SecGroup], error)
 }
 
-// NewSecGroupServiceClient constructs a client for the hbf.v1.sgroups.SecGroupService service. By
+// NewSecGroupServiceClient constructs a client for the hbf.v2.sgroups.SecGroupService service. By
 // default, it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses,
 // and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the
 // connect.WithGRPC() or connect.WithGRPCWeb() options.
@@ -253,87 +253,87 @@ type secGroupServiceClient struct {
 	getSecGroupForAddress *connect.Client[sgroups.GetSecGroupForAddressReq, sgroups.SecGroup]
 }
 
-// Sync calls hbf.v1.sgroups.SecGroupService.Sync.
+// Sync calls hbf.v2.sgroups.SecGroupService.Sync.
 func (c *secGroupServiceClient) Sync(ctx context.Context, req *connect.Request[sgroups.SyncReq]) (*connect.Response[emptypb.Empty], error) {
 	return c.sync.CallUnary(ctx, req)
 }
 
-// SyncStatus calls hbf.v1.sgroups.SecGroupService.SyncStatus.
+// SyncStatus calls hbf.v2.sgroups.SecGroupService.SyncStatus.
 func (c *secGroupServiceClient) SyncStatus(ctx context.Context, req *connect.Request[emptypb.Empty]) (*connect.Response[sgroups.SyncStatusResp], error) {
 	return c.syncStatus.CallUnary(ctx, req)
 }
 
-// SyncStatuses calls hbf.v1.sgroups.SecGroupService.SyncStatuses.
+// SyncStatuses calls hbf.v2.sgroups.SecGroupService.SyncStatuses.
 func (c *secGroupServiceClient) SyncStatuses(ctx context.Context, req *connect.Request[emptypb.Empty]) (*connect.ServerStreamForClient[sgroups.SyncStatusResp], error) {
 	return c.syncStatuses.CallServerStream(ctx, req)
 }
 
-// ListNetworks calls hbf.v1.sgroups.SecGroupService.ListNetworks.
+// ListNetworks calls hbf.v2.sgroups.SecGroupService.ListNetworks.
 func (c *secGroupServiceClient) ListNetworks(ctx context.Context, req *connect.Request[sgroups.ListNetworksReq]) (*connect.Response[sgroups.ListNetworksResp], error) {
 	return c.listNetworks.CallUnary(ctx, req)
 }
 
-// ListSecurityGroups calls hbf.v1.sgroups.SecGroupService.ListSecurityGroups.
+// ListSecurityGroups calls hbf.v2.sgroups.SecGroupService.ListSecurityGroups.
 func (c *secGroupServiceClient) ListSecurityGroups(ctx context.Context, req *connect.Request[sgroups.ListSecurityGroupsReq]) (*connect.Response[sgroups.ListSecurityGroupsResp], error) {
 	return c.listSecurityGroups.CallUnary(ctx, req)
 }
 
-// GetSgSubnets calls hbf.v1.sgroups.SecGroupService.GetSgSubnets.
+// GetSgSubnets calls hbf.v2.sgroups.SecGroupService.GetSgSubnets.
 func (c *secGroupServiceClient) GetSgSubnets(ctx context.Context, req *connect.Request[sgroups.GetSgSubnetsReq]) (*connect.Response[sgroups.GetSgSubnetsResp], error) {
 	return c.getSgSubnets.CallUnary(ctx, req)
 }
 
-// GetRules calls hbf.v1.sgroups.SecGroupService.GetRules.
+// GetRules calls hbf.v2.sgroups.SecGroupService.GetRules.
 func (c *secGroupServiceClient) GetRules(ctx context.Context, req *connect.Request[sgroups.GetRulesReq]) (*connect.Response[sgroups.RulesResp], error) {
 	return c.getRules.CallUnary(ctx, req)
 }
 
-// FindRules calls hbf.v1.sgroups.SecGroupService.FindRules.
+// FindRules calls hbf.v2.sgroups.SecGroupService.FindRules.
 func (c *secGroupServiceClient) FindRules(ctx context.Context, req *connect.Request[sgroups.FindRulesReq]) (*connect.Response[sgroups.RulesResp], error) {
 	return c.findRules.CallUnary(ctx, req)
 }
 
-// FindFqdnRules calls hbf.v1.sgroups.SecGroupService.FindFqdnRules.
+// FindFqdnRules calls hbf.v2.sgroups.SecGroupService.FindFqdnRules.
 func (c *secGroupServiceClient) FindFqdnRules(ctx context.Context, req *connect.Request[sgroups.FindFqdnRulesReq]) (*connect.Response[sgroups.FqdnRulesResp], error) {
 	return c.findFqdnRules.CallUnary(ctx, req)
 }
 
-// FindSgIcmpRules calls hbf.v1.sgroups.SecGroupService.FindSgIcmpRules.
+// FindSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindSgIcmpRules.
 func (c *secGroupServiceClient) FindSgIcmpRules(ctx context.Context, req *connect.Request[sgroups.FindSgIcmpRulesReq]) (*connect.Response[sgroups.SgIcmpRulesResp], error) {
 	return c.findSgIcmpRules.CallUnary(ctx, req)
 }
 
-// FindSgSgIcmpRules calls hbf.v1.sgroups.SecGroupService.FindSgSgIcmpRules.
+// FindSgSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindSgSgIcmpRules.
 func (c *secGroupServiceClient) FindSgSgIcmpRules(ctx context.Context, req *connect.Request[sgroups.FindSgSgIcmpRulesReq]) (*connect.Response[sgroups.SgSgIcmpRulesResp], error) {
 	return c.findSgSgIcmpRules.CallUnary(ctx, req)
 }
 
-// FindCidrSgRules calls hbf.v1.sgroups.SecGroupService.FindCidrSgRules.
+// FindCidrSgRules calls hbf.v2.sgroups.SecGroupService.FindCidrSgRules.
 func (c *secGroupServiceClient) FindCidrSgRules(ctx context.Context, req *connect.Request[sgroups.FindCidrSgRulesReq]) (*connect.Response[sgroups.CidrSgRulesResp], error) {
 	return c.findCidrSgRules.CallUnary(ctx, req)
 }
 
-// FindSgSgRules calls hbf.v1.sgroups.SecGroupService.FindSgSgRules.
+// FindSgSgRules calls hbf.v2.sgroups.SecGroupService.FindSgSgRules.
 func (c *secGroupServiceClient) FindSgSgRules(ctx context.Context, req *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
 	return c.findSgSgRules.CallUnary(ctx, req)
 }
 
-// FindIESgSgIcmpRules calls hbf.v1.sgroups.SecGroupService.FindIESgSgIcmpRules.
+// FindIESgSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindIESgSgIcmpRules.
 func (c *secGroupServiceClient) FindIESgSgIcmpRules(ctx context.Context, req *connect.Request[sgroups.FindIESgSgIcmpRulesReq]) (*connect.Response[sgroups.IESgSgIcmpRulesResp], error) {
 	return c.findIESgSgIcmpRules.CallUnary(ctx, req)
 }
 
-// FindCidrSgIcmpRules calls hbf.v1.sgroups.SecGroupService.FindCidrSgIcmpRules.
+// FindCidrSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindCidrSgIcmpRules.
 func (c *secGroupServiceClient) FindCidrSgIcmpRules(ctx context.Context, req *connect.Request[sgroups.FindCidrSgIcmpRulesReq]) (*connect.Response[sgroups.CidrSgIcmpRulesResp], error) {
 	return c.findCidrSgIcmpRules.CallUnary(ctx, req)
 }
 
-// GetSecGroupForAddress calls hbf.v1.sgroups.SecGroupService.GetSecGroupForAddress.
+// GetSecGroupForAddress calls hbf.v2.sgroups.SecGroupService.GetSecGroupForAddress.
 func (c *secGroupServiceClient) GetSecGroupForAddress(ctx context.Context, req *connect.Request[sgroups.GetSecGroupForAddressReq]) (*connect.Response[sgroups.SecGroup], error) {
 	return c.getSecGroupForAddress.CallUnary(ctx, req)
 }
 
-// SecGroupServiceHandler is an implementation of the hbf.v1.sgroups.SecGroupService service.
+// SecGroupServiceHandler is an implementation of the hbf.v2.sgroups.SecGroupService service.
 type SecGroupServiceHandler interface {
 	Sync(context.Context, *connect.Request[sgroups.SyncReq]) (*connect.Response[emptypb.Empty], error)
 	SyncStatus(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[sgroups.SyncStatusResp], error)
@@ -455,7 +455,7 @@ func NewSecGroupServiceHandler(svc SecGroupServiceHandler, opts ...connect.Handl
 		connect.WithSchema(secGroupServiceGetSecGroupForAddressMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
-	return "/hbf.v1.sgroups.SecGroupService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return "/hbf.v2.sgroups.SecGroupService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case SecGroupServiceSyncProcedure:
 			secGroupServiceSyncHandler.ServeHTTP(w, r)
@@ -499,65 +499,65 @@ func NewSecGroupServiceHandler(svc SecGroupServiceHandler, opts ...connect.Handl
 type UnimplementedSecGroupServiceHandler struct{}
 
 func (UnimplementedSecGroupServiceHandler) Sync(context.Context, *connect.Request[sgroups.SyncReq]) (*connect.Response[emptypb.Empty], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.Sync is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.Sync is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) SyncStatus(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[sgroups.SyncStatusResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.SyncStatus is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.SyncStatus is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) SyncStatuses(context.Context, *connect.Request[emptypb.Empty], *connect.ServerStream[sgroups.SyncStatusResp]) error {
-	return connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.SyncStatuses is not implemented"))
+	return connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.SyncStatuses is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) ListNetworks(context.Context, *connect.Request[sgroups.ListNetworksReq]) (*connect.Response[sgroups.ListNetworksResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.ListNetworks is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.ListNetworks is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) ListSecurityGroups(context.Context, *connect.Request[sgroups.ListSecurityGroupsReq]) (*connect.Response[sgroups.ListSecurityGroupsResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.ListSecurityGroups is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.ListSecurityGroups is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) GetSgSubnets(context.Context, *connect.Request[sgroups.GetSgSubnetsReq]) (*connect.Response[sgroups.GetSgSubnetsResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.GetSgSubnets is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.GetSgSubnets is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) GetRules(context.Context, *connect.Request[sgroups.GetRulesReq]) (*connect.Response[sgroups.RulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.GetRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.GetRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindRules(context.Context, *connect.Request[sgroups.FindRulesReq]) (*connect.Response[sgroups.RulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindFqdnRules(context.Context, *connect.Request[sgroups.FindFqdnRulesReq]) (*connect.Response[sgroups.FqdnRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindFqdnRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindFqdnRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindSgIcmpRules(context.Context, *connect.Request[sgroups.FindSgIcmpRulesReq]) (*connect.Response[sgroups.SgIcmpRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindSgIcmpRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindSgIcmpRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindSgSgIcmpRules(context.Context, *connect.Request[sgroups.FindSgSgIcmpRulesReq]) (*connect.Response[sgroups.SgSgIcmpRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindSgSgIcmpRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindSgSgIcmpRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindCidrSgRules(context.Context, *connect.Request[sgroups.FindCidrSgRulesReq]) (*connect.Response[sgroups.CidrSgRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindCidrSgRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindCidrSgRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindSgSgRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindSgSgRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindSgSgRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindIESgSgIcmpRules(context.Context, *connect.Request[sgroups.FindIESgSgIcmpRulesReq]) (*connect.Response[sgroups.IESgSgIcmpRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindIESgSgIcmpRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindIESgSgIcmpRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindCidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindCidrSgIcmpRulesReq]) (*connect.Response[sgroups.CidrSgIcmpRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.FindCidrSgIcmpRules is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindCidrSgIcmpRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) GetSecGroupForAddress(context.Context, *connect.Request[sgroups.GetSecGroupForAddressReq]) (*connect.Response[sgroups.SecGroup], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v1.sgroups.SecGroupService.GetSecGroupForAddress is not implemented"))
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.GetSecGroupForAddress is not implemented"))
 }

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package hbf.v1.sgroups;
+package hbf.v2.sgroups;
 option go_package = "github.com/H-BF/protos/pkg/api/sgroups;sgroups";
 
 import "google/protobuf/empty.proto";
@@ -13,7 +13,7 @@ import "common/ip-transport.proto";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Host Based Firewall";
-    version: "1.0";
+    version: "2.0";
     contact: {
       name: "E";
       url: "https://blog.bullgare.com/2020/07/complete-list-of-swagger-options-to-protobuf-file/";
@@ -98,7 +98,7 @@ message RulePriority {
 message Rule {
    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
       json_schema: {
-        required: ["sg_from", "sg_to", "transport"]
+        required: ["sgFrom", "sgTo", "transport"]
       }
    };
    //security group at client
@@ -121,7 +121,7 @@ message Rule {
 message FqdnRule {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
      json_schema: {
-       required: ["sg_from", "FQDN", "transport"]
+       required: ["sgFrom", "FQDN", "transport"]
      }
   };
   //security group at client
@@ -135,7 +135,7 @@ message FqdnRule {
   //logs: switch-{ON|OFF} logs in rules
   bool logs = 5;
   //protocols: L7 protocol list
-  repeated string protocols = 6;
+  //repeated string protocols = 6;
   //action: represents rule action
   RuleAction action = 7;
   //priority: rule priority affects on rule pos in its rule list
@@ -145,7 +145,7 @@ message FqdnRule {
 // SG:ICMP type rule
 message SgIcmpRule {
   // Security group name
-  string Sg = 1;
+  string SG = 1;
   // ICMP spec
   common.ICMP ICMP = 2;
   //logs: switch-{ON|OFF} logs in rules
@@ -159,9 +159,9 @@ message SgIcmpRule {
 // SG-SG:ICMP type rule
 message SgSgIcmpRule {
   // Security group name
-  string SgFrom = 1;
+  string sgFrom = 1;
   // Security group name 
-  string SgTo = 2;
+  string sgTo = 2;
   // ICMP spec
   common.ICMP ICMP = 3;
   //logs: switch-{ON|OFF} logs in rules
@@ -230,15 +230,15 @@ message CidrSgIcmpRule {
 message SgSgRule {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { 
-      required: ["Sg", "SgLocal", "transport", "traffic"]
+      required: ["SG", "sgLocal", "transport", "traffic"]
     }    
   };
   // ip net transport [TCP, UDP]
   common.Networks.NetIP.Transport transport = 1;
   // Security group name which will be src/dst of traffic when ingress/egress option chosen
-  string Sg = 2;
+  string SG = 2;
   // Security group name which will be src when egress chosen, and dst when ingress
-  string SgLocal = 3;
+  string sg_local = 3;
   // traffic direction [INGERSS, EGRESS]
   common.Traffic traffic = 4;
   // AccPorts: access port set(s)
@@ -257,13 +257,13 @@ message SgSgRule {
 message IESgSgIcmpRule {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
-      required: ["Sg", "SgLocal", "traffic", "ICMP.IPv"]
+      required: ["SG", "sgLocal", "traffic", "ICMP.IPv"]
     }
   };
   // Security group name
-  string Sg = 1;
+  string SG = 1;
   // Security group name
-  string SgLocal = 2;
+  string sg_local = 2;
   // traffic direction [INGERSS, EGRESS]
   common.Traffic traffic = 3;
   // ICMP spec
@@ -344,7 +344,7 @@ message SyncCidrSgIcmpRules {
 //ListNetworksReq: req to list Networks
 message ListNetworksReq {
   //network names scope; if none then list all netrworks
-  repeated string netework_names = 1;
+  repeated string network_names = 1;
 }
 
 //ListNetworksResp: Network list resp
@@ -388,7 +388,7 @@ message SyncReq {
   //one of subject
   oneof subject {
       //subject of Security Grpup(s) rule(s)
-      SyncSGRules sg_rules = 2;
+      SyncSGRules sg_sg_rules = 2;
       //subject of Security Grpup(s)
       SyncSecurityGroups groups = 3;
       //subject of Network(s)
@@ -400,13 +400,13 @@ message SyncReq {
       //subject of SG-SG:ICMP rule(s)
       SyncSgSgIcmpRules sg_sg_icmp_rules = 7;
       //subject of CIDR-SG-[INGERSS,EGRESS] rule(s)
-      SyncCidrSgRules cidr_sg_rules = 8;
+      SyncCidrSgRules ie_cidr_sg_rules = 8;
       //subject of SG-SG-[INGERSS,EGRESS] rule(s)
-      SyncSgSgRules sg_sg_rules = 9;
+      SyncSgSgRules ie_sg_sg_rules = 9;
       //subject of SG-SG-[INGRESS,EGRESS]:ICMP rule(s)
       SyncIESgSgIcmpRules ie_sg_sg_icmp_rules = 10;
       // subject of CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s)
-      SyncCidrSgIcmpRules cidr_sg_icmp_rules = 11;
+      SyncCidrSgIcmpRules ie_cidr_sg_icmp_rules = 11;
   }
 }
 
@@ -414,7 +414,7 @@ message SyncReq {
 message GetSgSubnetsReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
-      required: ["sg_name"]
+      required: ["sgName"]
     }    
   };
   //security group name
@@ -431,7 +431,7 @@ message GetSgSubnetsResp {
 message GetRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
-      required: ["sg_from", "sg_to"]
+      required: ["sgFrom", "sgTo"]
     }    
   };
   //name of security groups 'from'
@@ -444,7 +444,7 @@ message GetRulesReq {
 message FindRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
-      required: ["sg_from", "sg_to"]
+      required: ["sgFrom", "sgTo"]
     }    
   };
   //scope GS name 'from' items
@@ -463,7 +463,7 @@ message RulesResp {
 message FindFqdnRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
-      required: ["sg_from"]
+      required: ["sgFrom"]
     }    
   };
   //scope GS name 'from' items
@@ -480,11 +480,11 @@ message FqdnRulesResp {
 message FindSgIcmpRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
-      required: ["sg"]
+      required: ["SG"]
     }    
   };
   //scope GS name item(s)
-  repeated string sg = 1;
+  repeated string SG = 1;
 }
 
 //FindSgIcmpRulesResp: SG:ICMP Rule(s) resp
@@ -497,7 +497,7 @@ message SgIcmpRulesResp {
 message FindSgSgIcmpRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {      
-      required: ["sg_from", "sg_to"]
+      required: ["sgFrom", "sgTo"]
     }    
   };
   //scope GS-from name item(s)
@@ -516,11 +516,11 @@ message SgSgIcmpRulesResp {
 message FindCidrSgRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
-      required: ["sg"]
+      required: ["SG"]
     }
   };
   //scope GS name item(s)
-  repeated string sg = 1;
+  repeated string SG = 1;
 }
 
 //СidrSgRulesResp: CIDR-SG-[INGRESS, EGRESS] rule(s) resp
@@ -533,13 +533,13 @@ message CidrSgRulesResp {
 message FindSgSgRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
-      required: ["Sg", "SgLocal"]
+      required: ["SG", "sgLocal"]
     }
   };
   //scope Sg name item(s)
-  repeated string Sg = 1;
+  repeated string SG = 1;
   //scope SgLocal name item(s)
-  repeated string SgLocal = 2;
+  repeated string sg_local = 2;
 }
 
 // SgSgRulesResp: SG-SG-[INGRESS, EGRESS] rule(s) resp
@@ -552,13 +552,13 @@ message SgSgRulesResp {
 message FindIESgSgIcmpRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
-      required: ["Sg", "SgLocal"]
+      required: ["SG", "sgLocal"]
     }
   };
   //scope Sg name item(s)
-  repeated string Sg = 1;
+  repeated string SG = 1;
   //scope SgLocal name item(s)
-  repeated string SgLocal = 2;
+  repeated string sg_local = 2;
 }
 
 // IESgSgIcmpRulesResp: SG-SG-[INGRESS|EGRESS]:ICMP rule(s) resp
@@ -571,11 +571,11 @@ message IESgSgIcmpRulesResp {
 message FindCidrSgIcmpRulesReq {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
-      required: ["sg"]
+      required: ["SG"]
     }
   };
   //scope SG name item(s)
-  repeated string sg = 1;
+  repeated string SG = 1;
 }
 
 // CidrSgIcmpRulesResp: CIDR-SG-[INGRESS|EGRESS]:ICMP rules(s) resp
@@ -602,7 +602,7 @@ service SecGroupService {
    
    rpc Sync(SyncReq) returns (google.protobuf.Empty) {
      option (google.api.http) = {
-        post: "/v1/sync"
+        post: "/v2/sync"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -612,7 +612,7 @@ service SecGroupService {
 
    rpc SyncStatus(google.protobuf.Empty) returns(SyncStatusResp){
      option (google.api.http) = {
-        get: "/v1/sync/status"
+        get: "/v2/sync/status"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "SyncStatus: gets last succeeded update DB status";       
@@ -623,7 +623,7 @@ service SecGroupService {
    
    rpc ListNetworks(ListNetworksReq) returns (ListNetworksResp) {
      option (google.api.http) = {
-        post: "/v1/list/networks"
+        post: "/v2/list-networks"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -633,7 +633,7 @@ service SecGroupService {
    
    rpc ListSecurityGroups(ListSecurityGroupsReq) returns (ListSecurityGroupsResp) {
      option (google.api.http) = {
-        post: "/v1/list/security-groups"
+        post: "/v2/list-security-groups"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -643,7 +643,7 @@ service SecGroupService {
    
    rpc GetSgSubnets(GetSgSubnetsReq) returns (GetSgSubnetsResp){
      option (google.api.http) = {
-        get: "/v1/sg/{sg_name}/subnets"
+        get: "/v2/sg/{sg_name}/subnets"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "GetSgSubnets: gets Networks related to SG";       
@@ -652,7 +652,7 @@ service SecGroupService {
    
    rpc GetRules(GetRulesReq) returns (RulesResp) {
      option (google.api.http) = {
-        get: "/v1/sg-from/{sg_from}/to/{sg_to}/rules"
+        get: "/v2/sg-from/{sg_from}/to/{sg_to}/rules"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "GetRules: gets SG(s) Rule(s) for pair SG 'from'->'to'";       
@@ -661,7 +661,7 @@ service SecGroupService {
    
    rpc FindRules(FindRulesReq) returns (RulesResp) {
      option (google.api.http) = {
-        post: "/v1/rules"
+        post: "/v2/sg-sg-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -671,7 +671,7 @@ service SecGroupService {
 
    rpc FindFqdnRules(FindFqdnRulesReq) returns (FqdnRulesResp) {
      option (google.api.http) = {
-        post: "/v1/fqdn/rules"
+        post: "/v2/fqdn-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -681,7 +681,7 @@ service SecGroupService {
 
    rpc FindSgIcmpRules(FindSgIcmpRulesReq) returns (SgIcmpRulesResp) {
      option (google.api.http) = {
-        post: "/v1/sg-icmp/rules"
+        post: "/v2/sg-icmp-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -691,7 +691,7 @@ service SecGroupService {
 
    rpc FindSgSgIcmpRules(FindSgSgIcmpRulesReq) returns (SgSgIcmpRulesResp) {
      option (google.api.http) = {
-        post: "/v1/sg-sg-icmp/rules"
+        post: "/v2/sg-sg-icmp-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -701,7 +701,7 @@ service SecGroupService {
 
    rpc FindCidrSgRules(FindCidrSgRulesReq) returns (CidrSgRulesResp) {
      option (google.api.http) = {
-        post: "/v1/cird-sg/rules"
+        post: "/v2/cidr-sg-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -711,7 +711,7 @@ service SecGroupService {
 
    rpc FindSgSgRules(FindSgSgRulesReq) returns (SgSgRulesResp) {
     option (google.api.http) = {
-        post: "/v1/ie-sg-sg/rules"
+        post: "/v2/ie-sg-sg-rules"
         body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -721,7 +721,7 @@ service SecGroupService {
 
    rpc FindIESgSgIcmpRules(FindIESgSgIcmpRulesReq) returns (IESgSgIcmpRulesResp) {
      option (google.api.http) = {
-       post: "/v1/ie-sg-sg-icmp/rules"
+       post: "/v2/ie-sg-sg-icmp-rules"
        body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -731,7 +731,7 @@ service SecGroupService {
 
   rpc FindCidrSgIcmpRules(FindCidrSgIcmpRulesReq) returns (CidrSgIcmpRulesResp) {
     option (google.api.http) = {
-      post: "/v1/cidr-sg-icmp/rules"
+      post: "/v2/cidr-sg-icmp-rules"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -741,7 +741,7 @@ service SecGroupService {
    
    rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
      option (google.api.http) = {
-        get: "/v1/{address}/sg"
+        get: "/v2/{address}/sg"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description: "GetSecGroupForAddress: gets Security Group by IP or CIDR";       
