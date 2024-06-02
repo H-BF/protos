@@ -181,7 +181,7 @@ func local_request_SecGroupService_GetSgSubnets_0(ctx context.Context, marshaler
 }
 
 func request_SecGroupService_GetRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRulesReq
+	var protoReq GetSgSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -217,7 +217,7 @@ func request_SecGroupService_GetRules_0(ctx context.Context, marshaler runtime.M
 }
 
 func local_request_SecGroupService_GetRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRulesReq
+	var protoReq GetSgSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -253,7 +253,7 @@ func local_request_SecGroupService_GetRules_0(ctx context.Context, marshaler run
 }
 
 func request_SecGroupService_FindRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindRulesReq
+	var protoReq FindSgSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -266,7 +266,7 @@ func request_SecGroupService_FindRules_0(ctx context.Context, marshaler runtime.
 }
 
 func local_request_SecGroupService_FindRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindRulesReq
+	var protoReq FindSgSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -357,7 +357,7 @@ func local_request_SecGroupService_FindSgSgIcmpRules_0(ctx context.Context, mars
 }
 
 func request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindCidrSgRulesReq
+	var protoReq FindIECidrSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -370,7 +370,7 @@ func request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marshaler ru
 }
 
 func local_request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindCidrSgRulesReq
+	var protoReq FindIECidrSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -383,7 +383,7 @@ func local_request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marsha
 }
 
 func request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindSgSgRulesReq
+	var protoReq FindIESgSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -396,7 +396,7 @@ func request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runt
 }
 
 func local_request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindSgSgRulesReq
+	var protoReq FindIESgSgRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -435,7 +435,7 @@ func local_request_SecGroupService_FindIESgSgIcmpRules_0(ctx context.Context, ma
 }
 
 func request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindCidrSgIcmpRulesReq
+	var protoReq FindIECidrSgIcmpRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
@@ -448,7 +448,7 @@ func request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, marshale
 }
 
 func local_request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq FindCidrSgIcmpRulesReq
+	var protoReq FindIECidrSgIcmpRulesReq
 	var metadata runtime.ServerMetadata
 
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
