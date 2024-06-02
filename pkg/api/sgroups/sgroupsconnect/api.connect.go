@@ -51,12 +51,9 @@ const (
 	// SecGroupServiceGetSgSubnetsProcedure is the fully-qualified name of the SecGroupService's
 	// GetSgSubnets RPC.
 	SecGroupServiceGetSgSubnetsProcedure = "/hbf.v2.sgroups.SecGroupService/GetSgSubnets"
-	// SecGroupServiceGetRulesProcedure is the fully-qualified name of the SecGroupService's GetRules
-	// RPC.
-	SecGroupServiceGetRulesProcedure = "/hbf.v2.sgroups.SecGroupService/GetRules"
-	// SecGroupServiceFindRulesProcedure is the fully-qualified name of the SecGroupService's FindRules
-	// RPC.
-	SecGroupServiceFindRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindRules"
+	// SecGroupServiceFindSgSgRulesProcedure is the fully-qualified name of the SecGroupService's
+	// FindSgSgRules RPC.
+	SecGroupServiceFindSgSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindSgSgRules"
 	// SecGroupServiceFindFqdnRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindFqdnRules RPC.
 	SecGroupServiceFindFqdnRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindFqdnRules"
@@ -66,18 +63,18 @@ const (
 	// SecGroupServiceFindSgSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindSgSgIcmpRules RPC.
 	SecGroupServiceFindSgSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindSgSgIcmpRules"
-	// SecGroupServiceFindCidrSgRulesProcedure is the fully-qualified name of the SecGroupService's
-	// FindCidrSgRules RPC.
-	SecGroupServiceFindCidrSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindCidrSgRules"
-	// SecGroupServiceFindSgSgRulesProcedure is the fully-qualified name of the SecGroupService's
-	// FindSgSgRules RPC.
-	SecGroupServiceFindSgSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindSgSgRules"
+	// SecGroupServiceFindIECidrSgRulesProcedure is the fully-qualified name of the SecGroupService's
+	// FindIECidrSgRules RPC.
+	SecGroupServiceFindIECidrSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindIECidrSgRules"
+	// SecGroupServiceFindIESgSgRulesProcedure is the fully-qualified name of the SecGroupService's
+	// FindIESgSgRules RPC.
+	SecGroupServiceFindIESgSgRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindIESgSgRules"
 	// SecGroupServiceFindIESgSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
 	// FindIESgSgIcmpRules RPC.
 	SecGroupServiceFindIESgSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindIESgSgIcmpRules"
-	// SecGroupServiceFindCidrSgIcmpRulesProcedure is the fully-qualified name of the SecGroupService's
-	// FindCidrSgIcmpRules RPC.
-	SecGroupServiceFindCidrSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindCidrSgIcmpRules"
+	// SecGroupServiceFindIECidrSgIcmpRulesProcedure is the fully-qualified name of the
+	// SecGroupService's FindIECidrSgIcmpRules RPC.
+	SecGroupServiceFindIECidrSgIcmpRulesProcedure = "/hbf.v2.sgroups.SecGroupService/FindIECidrSgIcmpRules"
 	// SecGroupServiceGetSecGroupForAddressProcedure is the fully-qualified name of the
 	// SecGroupService's GetSecGroupForAddress RPC.
 	SecGroupServiceGetSecGroupForAddressProcedure = "/hbf.v2.sgroups.SecGroupService/GetSecGroupForAddress"
@@ -92,15 +89,14 @@ var (
 	secGroupServiceListNetworksMethodDescriptor          = secGroupServiceServiceDescriptor.Methods().ByName("ListNetworks")
 	secGroupServiceListSecurityGroupsMethodDescriptor    = secGroupServiceServiceDescriptor.Methods().ByName("ListSecurityGroups")
 	secGroupServiceGetSgSubnetsMethodDescriptor          = secGroupServiceServiceDescriptor.Methods().ByName("GetSgSubnets")
-	secGroupServiceGetRulesMethodDescriptor              = secGroupServiceServiceDescriptor.Methods().ByName("GetRules")
-	secGroupServiceFindRulesMethodDescriptor             = secGroupServiceServiceDescriptor.Methods().ByName("FindRules")
+	secGroupServiceFindSgSgRulesMethodDescriptor         = secGroupServiceServiceDescriptor.Methods().ByName("FindSgSgRules")
 	secGroupServiceFindFqdnRulesMethodDescriptor         = secGroupServiceServiceDescriptor.Methods().ByName("FindFqdnRules")
 	secGroupServiceFindSgIcmpRulesMethodDescriptor       = secGroupServiceServiceDescriptor.Methods().ByName("FindSgIcmpRules")
 	secGroupServiceFindSgSgIcmpRulesMethodDescriptor     = secGroupServiceServiceDescriptor.Methods().ByName("FindSgSgIcmpRules")
-	secGroupServiceFindCidrSgRulesMethodDescriptor       = secGroupServiceServiceDescriptor.Methods().ByName("FindCidrSgRules")
-	secGroupServiceFindSgSgRulesMethodDescriptor         = secGroupServiceServiceDescriptor.Methods().ByName("FindSgSgRules")
+	secGroupServiceFindIECidrSgRulesMethodDescriptor     = secGroupServiceServiceDescriptor.Methods().ByName("FindIECidrSgRules")
+	secGroupServiceFindIESgSgRulesMethodDescriptor       = secGroupServiceServiceDescriptor.Methods().ByName("FindIESgSgRules")
 	secGroupServiceFindIESgSgIcmpRulesMethodDescriptor   = secGroupServiceServiceDescriptor.Methods().ByName("FindIESgSgIcmpRules")
-	secGroupServiceFindCidrSgIcmpRulesMethodDescriptor   = secGroupServiceServiceDescriptor.Methods().ByName("FindCidrSgIcmpRules")
+	secGroupServiceFindIECidrSgIcmpRulesMethodDescriptor = secGroupServiceServiceDescriptor.Methods().ByName("FindIECidrSgIcmpRules")
 	secGroupServiceGetSecGroupForAddressMethodDescriptor = secGroupServiceServiceDescriptor.Methods().ByName("GetSecGroupForAddress")
 )
 
@@ -112,15 +108,14 @@ type SecGroupServiceClient interface {
 	ListNetworks(context.Context, *connect.Request[sgroups.ListNetworksReq]) (*connect.Response[sgroups.ListNetworksResp], error)
 	ListSecurityGroups(context.Context, *connect.Request[sgroups.ListSecurityGroupsReq]) (*connect.Response[sgroups.ListSecurityGroupsResp], error)
 	GetSgSubnets(context.Context, *connect.Request[sgroups.GetSgSubnetsReq]) (*connect.Response[sgroups.GetSgSubnetsResp], error)
-	GetRules(context.Context, *connect.Request[sgroups.GetSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error)
-	FindRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error)
+	FindSgSgRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error)
 	FindFqdnRules(context.Context, *connect.Request[sgroups.FindFqdnRulesReq]) (*connect.Response[sgroups.FqdnRulesResp], error)
 	FindSgIcmpRules(context.Context, *connect.Request[sgroups.FindSgIcmpRulesReq]) (*connect.Response[sgroups.SgIcmpRulesResp], error)
 	FindSgSgIcmpRules(context.Context, *connect.Request[sgroups.FindSgSgIcmpRulesReq]) (*connect.Response[sgroups.SgSgIcmpRulesResp], error)
-	FindCidrSgRules(context.Context, *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error)
-	FindSgSgRules(context.Context, *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error)
+	FindIECidrSgRules(context.Context, *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error)
+	FindIESgSgRules(context.Context, *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error)
 	FindIESgSgIcmpRules(context.Context, *connect.Request[sgroups.FindIESgSgIcmpRulesReq]) (*connect.Response[sgroups.IESgSgIcmpRulesResp], error)
-	FindCidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error)
+	FindIECidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error)
 	GetSecGroupForAddress(context.Context, *connect.Request[sgroups.GetSecGroupForAddressReq]) (*connect.Response[sgroups.SecGroup], error)
 }
 
@@ -170,16 +165,10 @@ func NewSecGroupServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 			connect.WithSchema(secGroupServiceGetSgSubnetsMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
-		getRules: connect.NewClient[sgroups.GetSgSgRulesReq, sgroups.SgSgRulesResp](
+		findSgSgRules: connect.NewClient[sgroups.FindSgSgRulesReq, sgroups.SgSgRulesResp](
 			httpClient,
-			baseURL+SecGroupServiceGetRulesProcedure,
-			connect.WithSchema(secGroupServiceGetRulesMethodDescriptor),
-			connect.WithClientOptions(opts...),
-		),
-		findRules: connect.NewClient[sgroups.FindSgSgRulesReq, sgroups.SgSgRulesResp](
-			httpClient,
-			baseURL+SecGroupServiceFindRulesProcedure,
-			connect.WithSchema(secGroupServiceFindRulesMethodDescriptor),
+			baseURL+SecGroupServiceFindSgSgRulesProcedure,
+			connect.WithSchema(secGroupServiceFindSgSgRulesMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
 		findFqdnRules: connect.NewClient[sgroups.FindFqdnRulesReq, sgroups.FqdnRulesResp](
@@ -200,16 +189,16 @@ func NewSecGroupServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 			connect.WithSchema(secGroupServiceFindSgSgIcmpRulesMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
-		findCidrSgRules: connect.NewClient[sgroups.FindIECidrSgRulesReq, sgroups.IECidrSgRulesResp](
+		findIECidrSgRules: connect.NewClient[sgroups.FindIECidrSgRulesReq, sgroups.IECidrSgRulesResp](
 			httpClient,
-			baseURL+SecGroupServiceFindCidrSgRulesProcedure,
-			connect.WithSchema(secGroupServiceFindCidrSgRulesMethodDescriptor),
+			baseURL+SecGroupServiceFindIECidrSgRulesProcedure,
+			connect.WithSchema(secGroupServiceFindIECidrSgRulesMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
-		findSgSgRules: connect.NewClient[sgroups.FindIESgSgRulesReq, sgroups.IESgSgRulesResp](
+		findIESgSgRules: connect.NewClient[sgroups.FindIESgSgRulesReq, sgroups.IESgSgRulesResp](
 			httpClient,
-			baseURL+SecGroupServiceFindSgSgRulesProcedure,
-			connect.WithSchema(secGroupServiceFindSgSgRulesMethodDescriptor),
+			baseURL+SecGroupServiceFindIESgSgRulesProcedure,
+			connect.WithSchema(secGroupServiceFindIESgSgRulesMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
 		findIESgSgIcmpRules: connect.NewClient[sgroups.FindIESgSgIcmpRulesReq, sgroups.IESgSgIcmpRulesResp](
@@ -218,10 +207,10 @@ func NewSecGroupServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 			connect.WithSchema(secGroupServiceFindIESgSgIcmpRulesMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
-		findCidrSgIcmpRules: connect.NewClient[sgroups.FindIECidrSgIcmpRulesReq, sgroups.IECidrSgIcmpRulesResp](
+		findIECidrSgIcmpRules: connect.NewClient[sgroups.FindIECidrSgIcmpRulesReq, sgroups.IECidrSgIcmpRulesResp](
 			httpClient,
-			baseURL+SecGroupServiceFindCidrSgIcmpRulesProcedure,
-			connect.WithSchema(secGroupServiceFindCidrSgIcmpRulesMethodDescriptor),
+			baseURL+SecGroupServiceFindIECidrSgIcmpRulesProcedure,
+			connect.WithSchema(secGroupServiceFindIECidrSgIcmpRulesMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
 		getSecGroupForAddress: connect.NewClient[sgroups.GetSecGroupForAddressReq, sgroups.SecGroup](
@@ -241,15 +230,14 @@ type secGroupServiceClient struct {
 	listNetworks          *connect.Client[sgroups.ListNetworksReq, sgroups.ListNetworksResp]
 	listSecurityGroups    *connect.Client[sgroups.ListSecurityGroupsReq, sgroups.ListSecurityGroupsResp]
 	getSgSubnets          *connect.Client[sgroups.GetSgSubnetsReq, sgroups.GetSgSubnetsResp]
-	getRules              *connect.Client[sgroups.GetSgSgRulesReq, sgroups.SgSgRulesResp]
-	findRules             *connect.Client[sgroups.FindSgSgRulesReq, sgroups.SgSgRulesResp]
+	findSgSgRules         *connect.Client[sgroups.FindSgSgRulesReq, sgroups.SgSgRulesResp]
 	findFqdnRules         *connect.Client[sgroups.FindFqdnRulesReq, sgroups.FqdnRulesResp]
 	findSgIcmpRules       *connect.Client[sgroups.FindSgIcmpRulesReq, sgroups.SgIcmpRulesResp]
 	findSgSgIcmpRules     *connect.Client[sgroups.FindSgSgIcmpRulesReq, sgroups.SgSgIcmpRulesResp]
-	findCidrSgRules       *connect.Client[sgroups.FindIECidrSgRulesReq, sgroups.IECidrSgRulesResp]
-	findSgSgRules         *connect.Client[sgroups.FindIESgSgRulesReq, sgroups.IESgSgRulesResp]
+	findIECidrSgRules     *connect.Client[sgroups.FindIECidrSgRulesReq, sgroups.IECidrSgRulesResp]
+	findIESgSgRules       *connect.Client[sgroups.FindIESgSgRulesReq, sgroups.IESgSgRulesResp]
 	findIESgSgIcmpRules   *connect.Client[sgroups.FindIESgSgIcmpRulesReq, sgroups.IESgSgIcmpRulesResp]
-	findCidrSgIcmpRules   *connect.Client[sgroups.FindIECidrSgIcmpRulesReq, sgroups.IECidrSgIcmpRulesResp]
+	findIECidrSgIcmpRules *connect.Client[sgroups.FindIECidrSgIcmpRulesReq, sgroups.IECidrSgIcmpRulesResp]
 	getSecGroupForAddress *connect.Client[sgroups.GetSecGroupForAddressReq, sgroups.SecGroup]
 }
 
@@ -283,14 +271,9 @@ func (c *secGroupServiceClient) GetSgSubnets(ctx context.Context, req *connect.R
 	return c.getSgSubnets.CallUnary(ctx, req)
 }
 
-// GetRules calls hbf.v2.sgroups.SecGroupService.GetRules.
-func (c *secGroupServiceClient) GetRules(ctx context.Context, req *connect.Request[sgroups.GetSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
-	return c.getRules.CallUnary(ctx, req)
-}
-
-// FindRules calls hbf.v2.sgroups.SecGroupService.FindRules.
-func (c *secGroupServiceClient) FindRules(ctx context.Context, req *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
-	return c.findRules.CallUnary(ctx, req)
+// FindSgSgRules calls hbf.v2.sgroups.SecGroupService.FindSgSgRules.
+func (c *secGroupServiceClient) FindSgSgRules(ctx context.Context, req *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
+	return c.findSgSgRules.CallUnary(ctx, req)
 }
 
 // FindFqdnRules calls hbf.v2.sgroups.SecGroupService.FindFqdnRules.
@@ -308,14 +291,14 @@ func (c *secGroupServiceClient) FindSgSgIcmpRules(ctx context.Context, req *conn
 	return c.findSgSgIcmpRules.CallUnary(ctx, req)
 }
 
-// FindCidrSgRules calls hbf.v2.sgroups.SecGroupService.FindCidrSgRules.
-func (c *secGroupServiceClient) FindCidrSgRules(ctx context.Context, req *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error) {
-	return c.findCidrSgRules.CallUnary(ctx, req)
+// FindIECidrSgRules calls hbf.v2.sgroups.SecGroupService.FindIECidrSgRules.
+func (c *secGroupServiceClient) FindIECidrSgRules(ctx context.Context, req *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error) {
+	return c.findIECidrSgRules.CallUnary(ctx, req)
 }
 
-// FindSgSgRules calls hbf.v2.sgroups.SecGroupService.FindSgSgRules.
-func (c *secGroupServiceClient) FindSgSgRules(ctx context.Context, req *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error) {
-	return c.findSgSgRules.CallUnary(ctx, req)
+// FindIESgSgRules calls hbf.v2.sgroups.SecGroupService.FindIESgSgRules.
+func (c *secGroupServiceClient) FindIESgSgRules(ctx context.Context, req *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error) {
+	return c.findIESgSgRules.CallUnary(ctx, req)
 }
 
 // FindIESgSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindIESgSgIcmpRules.
@@ -323,9 +306,9 @@ func (c *secGroupServiceClient) FindIESgSgIcmpRules(ctx context.Context, req *co
 	return c.findIESgSgIcmpRules.CallUnary(ctx, req)
 }
 
-// FindCidrSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindCidrSgIcmpRules.
-func (c *secGroupServiceClient) FindCidrSgIcmpRules(ctx context.Context, req *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error) {
-	return c.findCidrSgIcmpRules.CallUnary(ctx, req)
+// FindIECidrSgIcmpRules calls hbf.v2.sgroups.SecGroupService.FindIECidrSgIcmpRules.
+func (c *secGroupServiceClient) FindIECidrSgIcmpRules(ctx context.Context, req *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error) {
+	return c.findIECidrSgIcmpRules.CallUnary(ctx, req)
 }
 
 // GetSecGroupForAddress calls hbf.v2.sgroups.SecGroupService.GetSecGroupForAddress.
@@ -341,15 +324,14 @@ type SecGroupServiceHandler interface {
 	ListNetworks(context.Context, *connect.Request[sgroups.ListNetworksReq]) (*connect.Response[sgroups.ListNetworksResp], error)
 	ListSecurityGroups(context.Context, *connect.Request[sgroups.ListSecurityGroupsReq]) (*connect.Response[sgroups.ListSecurityGroupsResp], error)
 	GetSgSubnets(context.Context, *connect.Request[sgroups.GetSgSubnetsReq]) (*connect.Response[sgroups.GetSgSubnetsResp], error)
-	GetRules(context.Context, *connect.Request[sgroups.GetSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error)
-	FindRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error)
+	FindSgSgRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error)
 	FindFqdnRules(context.Context, *connect.Request[sgroups.FindFqdnRulesReq]) (*connect.Response[sgroups.FqdnRulesResp], error)
 	FindSgIcmpRules(context.Context, *connect.Request[sgroups.FindSgIcmpRulesReq]) (*connect.Response[sgroups.SgIcmpRulesResp], error)
 	FindSgSgIcmpRules(context.Context, *connect.Request[sgroups.FindSgSgIcmpRulesReq]) (*connect.Response[sgroups.SgSgIcmpRulesResp], error)
-	FindCidrSgRules(context.Context, *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error)
-	FindSgSgRules(context.Context, *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error)
+	FindIECidrSgRules(context.Context, *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error)
+	FindIESgSgRules(context.Context, *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error)
 	FindIESgSgIcmpRules(context.Context, *connect.Request[sgroups.FindIESgSgIcmpRulesReq]) (*connect.Response[sgroups.IESgSgIcmpRulesResp], error)
-	FindCidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error)
+	FindIECidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error)
 	GetSecGroupForAddress(context.Context, *connect.Request[sgroups.GetSecGroupForAddressReq]) (*connect.Response[sgroups.SecGroup], error)
 }
 
@@ -395,16 +377,10 @@ func NewSecGroupServiceHandler(svc SecGroupServiceHandler, opts ...connect.Handl
 		connect.WithSchema(secGroupServiceGetSgSubnetsMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
-	secGroupServiceGetRulesHandler := connect.NewUnaryHandler(
-		SecGroupServiceGetRulesProcedure,
-		svc.GetRules,
-		connect.WithSchema(secGroupServiceGetRulesMethodDescriptor),
-		connect.WithHandlerOptions(opts...),
-	)
-	secGroupServiceFindRulesHandler := connect.NewUnaryHandler(
-		SecGroupServiceFindRulesProcedure,
-		svc.FindRules,
-		connect.WithSchema(secGroupServiceFindRulesMethodDescriptor),
+	secGroupServiceFindSgSgRulesHandler := connect.NewUnaryHandler(
+		SecGroupServiceFindSgSgRulesProcedure,
+		svc.FindSgSgRules,
+		connect.WithSchema(secGroupServiceFindSgSgRulesMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
 	secGroupServiceFindFqdnRulesHandler := connect.NewUnaryHandler(
@@ -425,16 +401,16 @@ func NewSecGroupServiceHandler(svc SecGroupServiceHandler, opts ...connect.Handl
 		connect.WithSchema(secGroupServiceFindSgSgIcmpRulesMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
-	secGroupServiceFindCidrSgRulesHandler := connect.NewUnaryHandler(
-		SecGroupServiceFindCidrSgRulesProcedure,
-		svc.FindCidrSgRules,
-		connect.WithSchema(secGroupServiceFindCidrSgRulesMethodDescriptor),
+	secGroupServiceFindIECidrSgRulesHandler := connect.NewUnaryHandler(
+		SecGroupServiceFindIECidrSgRulesProcedure,
+		svc.FindIECidrSgRules,
+		connect.WithSchema(secGroupServiceFindIECidrSgRulesMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
-	secGroupServiceFindSgSgRulesHandler := connect.NewUnaryHandler(
-		SecGroupServiceFindSgSgRulesProcedure,
-		svc.FindSgSgRules,
-		connect.WithSchema(secGroupServiceFindSgSgRulesMethodDescriptor),
+	secGroupServiceFindIESgSgRulesHandler := connect.NewUnaryHandler(
+		SecGroupServiceFindIESgSgRulesProcedure,
+		svc.FindIESgSgRules,
+		connect.WithSchema(secGroupServiceFindIESgSgRulesMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
 	secGroupServiceFindIESgSgIcmpRulesHandler := connect.NewUnaryHandler(
@@ -443,10 +419,10 @@ func NewSecGroupServiceHandler(svc SecGroupServiceHandler, opts ...connect.Handl
 		connect.WithSchema(secGroupServiceFindIESgSgIcmpRulesMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
-	secGroupServiceFindCidrSgIcmpRulesHandler := connect.NewUnaryHandler(
-		SecGroupServiceFindCidrSgIcmpRulesProcedure,
-		svc.FindCidrSgIcmpRules,
-		connect.WithSchema(secGroupServiceFindCidrSgIcmpRulesMethodDescriptor),
+	secGroupServiceFindIECidrSgIcmpRulesHandler := connect.NewUnaryHandler(
+		SecGroupServiceFindIECidrSgIcmpRulesProcedure,
+		svc.FindIECidrSgIcmpRules,
+		connect.WithSchema(secGroupServiceFindIECidrSgIcmpRulesMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
 	secGroupServiceGetSecGroupForAddressHandler := connect.NewUnaryHandler(
@@ -469,24 +445,22 @@ func NewSecGroupServiceHandler(svc SecGroupServiceHandler, opts ...connect.Handl
 			secGroupServiceListSecurityGroupsHandler.ServeHTTP(w, r)
 		case SecGroupServiceGetSgSubnetsProcedure:
 			secGroupServiceGetSgSubnetsHandler.ServeHTTP(w, r)
-		case SecGroupServiceGetRulesProcedure:
-			secGroupServiceGetRulesHandler.ServeHTTP(w, r)
-		case SecGroupServiceFindRulesProcedure:
-			secGroupServiceFindRulesHandler.ServeHTTP(w, r)
+		case SecGroupServiceFindSgSgRulesProcedure:
+			secGroupServiceFindSgSgRulesHandler.ServeHTTP(w, r)
 		case SecGroupServiceFindFqdnRulesProcedure:
 			secGroupServiceFindFqdnRulesHandler.ServeHTTP(w, r)
 		case SecGroupServiceFindSgIcmpRulesProcedure:
 			secGroupServiceFindSgIcmpRulesHandler.ServeHTTP(w, r)
 		case SecGroupServiceFindSgSgIcmpRulesProcedure:
 			secGroupServiceFindSgSgIcmpRulesHandler.ServeHTTP(w, r)
-		case SecGroupServiceFindCidrSgRulesProcedure:
-			secGroupServiceFindCidrSgRulesHandler.ServeHTTP(w, r)
-		case SecGroupServiceFindSgSgRulesProcedure:
-			secGroupServiceFindSgSgRulesHandler.ServeHTTP(w, r)
+		case SecGroupServiceFindIECidrSgRulesProcedure:
+			secGroupServiceFindIECidrSgRulesHandler.ServeHTTP(w, r)
+		case SecGroupServiceFindIESgSgRulesProcedure:
+			secGroupServiceFindIESgSgRulesHandler.ServeHTTP(w, r)
 		case SecGroupServiceFindIESgSgIcmpRulesProcedure:
 			secGroupServiceFindIESgSgIcmpRulesHandler.ServeHTTP(w, r)
-		case SecGroupServiceFindCidrSgIcmpRulesProcedure:
-			secGroupServiceFindCidrSgIcmpRulesHandler.ServeHTTP(w, r)
+		case SecGroupServiceFindIECidrSgIcmpRulesProcedure:
+			secGroupServiceFindIECidrSgIcmpRulesHandler.ServeHTTP(w, r)
 		case SecGroupServiceGetSecGroupForAddressProcedure:
 			secGroupServiceGetSecGroupForAddressHandler.ServeHTTP(w, r)
 		default:
@@ -522,12 +496,8 @@ func (UnimplementedSecGroupServiceHandler) GetSgSubnets(context.Context, *connec
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.GetSgSubnets is not implemented"))
 }
 
-func (UnimplementedSecGroupServiceHandler) GetRules(context.Context, *connect.Request[sgroups.GetSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.GetRules is not implemented"))
-}
-
-func (UnimplementedSecGroupServiceHandler) FindRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindRules is not implemented"))
+func (UnimplementedSecGroupServiceHandler) FindSgSgRules(context.Context, *connect.Request[sgroups.FindSgSgRulesReq]) (*connect.Response[sgroups.SgSgRulesResp], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindSgSgRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindFqdnRules(context.Context, *connect.Request[sgroups.FindFqdnRulesReq]) (*connect.Response[sgroups.FqdnRulesResp], error) {
@@ -542,20 +512,20 @@ func (UnimplementedSecGroupServiceHandler) FindSgSgIcmpRules(context.Context, *c
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindSgSgIcmpRules is not implemented"))
 }
 
-func (UnimplementedSecGroupServiceHandler) FindCidrSgRules(context.Context, *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindCidrSgRules is not implemented"))
+func (UnimplementedSecGroupServiceHandler) FindIECidrSgRules(context.Context, *connect.Request[sgroups.FindIECidrSgRulesReq]) (*connect.Response[sgroups.IECidrSgRulesResp], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindIECidrSgRules is not implemented"))
 }
 
-func (UnimplementedSecGroupServiceHandler) FindSgSgRules(context.Context, *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindSgSgRules is not implemented"))
+func (UnimplementedSecGroupServiceHandler) FindIESgSgRules(context.Context, *connect.Request[sgroups.FindIESgSgRulesReq]) (*connect.Response[sgroups.IESgSgRulesResp], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindIESgSgRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) FindIESgSgIcmpRules(context.Context, *connect.Request[sgroups.FindIESgSgIcmpRulesReq]) (*connect.Response[sgroups.IESgSgIcmpRulesResp], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindIESgSgIcmpRules is not implemented"))
 }
 
-func (UnimplementedSecGroupServiceHandler) FindCidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindCidrSgIcmpRules is not implemented"))
+func (UnimplementedSecGroupServiceHandler) FindIECidrSgIcmpRules(context.Context, *connect.Request[sgroups.FindIECidrSgIcmpRulesReq]) (*connect.Response[sgroups.IECidrSgIcmpRulesResp], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("hbf.v2.sgroups.SecGroupService.FindIECidrSgIcmpRules is not implemented"))
 }
 
 func (UnimplementedSecGroupServiceHandler) GetSecGroupForAddress(context.Context, *connect.Request[sgroups.GetSecGroupForAddressReq]) (*connect.Response[sgroups.SecGroup], error) {

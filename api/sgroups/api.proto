@@ -13,12 +13,12 @@ import "common/ip-transport.proto";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Host Based Firewall";
-    version: "2.0";
-    contact: {
-      name: "E";
-      url: "https://blog.bullgare.com/2020/07/complete-list-of-swagger-options-to-protobuf-file/";
-    };
+    version: "2.0";    
   };
+  external_docs: {
+    url: "https://h-bf.github.io/sgroups/";
+    description: "Documentation";
+  }
   schemes: [HTTP];
   consumes: "application/json";
   produces: "application/json";
@@ -650,22 +650,13 @@ service SecGroupService {
      };
    };
    
-   rpc GetRules(GetSgSgRulesReq) returns (SgSgRulesResp) {
-     option (google.api.http) = {
-        get: "/v2/sg-from/{sg_from}/to/{sg_to}/rules"
-     };
-     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        description: "GetRules: gets SG-SG Rule(s) for pair SG 'from'->'to'";       
-     };
-   };
-   
-   rpc FindRules(FindSgSgRulesReq) returns (SgSgRulesResp) {
+   rpc FindSgSgRules(FindSgSgRulesReq) returns (SgSgRulesResp) {
      option (google.api.http) = {
         post: "/v2/sg-sg-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        description: "FindSgSgRules: finds SG-SG Rule(s) scoped by variety pairs 'from'->'to'";       
+        description: "FindSgSgRules: finds SG-SG Rule(s) scoped by variety pairs 'SG '->'to SG'";       
      };
    };
 
@@ -699,23 +690,23 @@ service SecGroupService {
      };
    };
 
-   rpc FindCidrSgRules(FindIECidrSgRulesReq) returns (IECidrSgRulesResp) {
+   rpc FindIECidrSgRules(FindIECidrSgRulesReq) returns (IECidrSgRulesResp) {
      option (google.api.http) = {
-        post: "/v2/cidr-sg-rules"
+        post: "/v2/ie-cidr-sg-rules"
         body: "*"
      };
      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        description: "FindCidrSgRules: finds CIDR-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG";       
+        description: "FindIECidrSgRules: finds CIDR-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG";       
      };
    };
 
-   rpc FindSgSgRules(FindIESgSgRulesReq) returns (IESgSgRulesResp) {
+   rpc FindIESgSgRules(FindIESgSgRulesReq) returns (IESgSgRulesResp) {
     option (google.api.http) = {
         post: "/v2/ie-sg-sg-rules"
         body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "FindSgSgRules: finds SG-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG-<FROM|TO>"
+      description: "FindIESgSgRules: finds SG-SG-[INGRESS+EGRESS] rule(s) scoped by variety SG-<FROM|TO>"
     };
    };
 
@@ -729,15 +720,15 @@ service SecGroupService {
      };
    };
 
-  rpc FindCidrSgIcmpRules(FindIECidrSgIcmpRulesReq) returns (IECidrSgIcmpRulesResp) {
-    option (google.api.http) = {
-      post: "/v2/cidr-sg-icmp-rules"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "FindCidrSgIcmpRules: finds CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s) scoped by variety SG"
-    };
-  }
+   rpc FindIECidrSgIcmpRules(FindIECidrSgIcmpRulesReq) returns (IECidrSgIcmpRulesResp) {
+     option (google.api.http) = {
+       post: "/v2/ie-cidr-sg-icmp-rules"
+       body: "*"
+     };
+     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+       description: "FindIECidrSgIcmpRules: finds CIDR-SG-[INGRESS|EGRESS]:ICMP rule(s) scoped by variety SG"
+     };
+   }
    
    rpc GetSecGroupForAddress(GetSecGroupForAddressReq) returns (SecGroup) {
      option (google.api.http) = {

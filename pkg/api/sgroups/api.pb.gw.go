@@ -180,79 +180,7 @@ func local_request_SecGroupService_GetSgSubnets_0(ctx context.Context, marshaler
 
 }
 
-func request_SecGroupService_GetRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetSgSgRulesReq
-	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["sg_from"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sg_from")
-	}
-
-	protoReq.SgFrom, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sg_from", err)
-	}
-
-	val, ok = pathParams["sg_to"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sg_to")
-	}
-
-	protoReq.SgTo, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sg_to", err)
-	}
-
-	msg, err := client.GetRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_SecGroupService_GetRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetSgSgRulesReq
-	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["sg_from"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sg_from")
-	}
-
-	protoReq.SgFrom, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sg_from", err)
-	}
-
-	val, ok = pathParams["sg_to"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sg_to")
-	}
-
-	protoReq.SgTo, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sg_to", err)
-	}
-
-	msg, err := server.GetRules(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_SecGroupService_FindRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindSgSgRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -260,12 +188,12 @@ func request_SecGroupService_FindRules_0(ctx context.Context, marshaler runtime.
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.FindRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.FindSgSgRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_SecGroupService_FindRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindSgSgRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -273,7 +201,7 @@ func local_request_SecGroupService_FindRules_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.FindRules(ctx, &protoReq)
+	msg, err := server.FindSgSgRules(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -356,7 +284,7 @@ func local_request_SecGroupService_FindSgSgIcmpRules_0(ctx context.Context, mars
 
 }
 
-func request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SecGroupService_FindIECidrSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindIECidrSgRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -364,12 +292,12 @@ func request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.FindCidrSgRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.FindIECidrSgRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SecGroupService_FindIECidrSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindIECidrSgRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -377,12 +305,12 @@ func local_request_SecGroupService_FindCidrSgRules_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.FindCidrSgRules(ctx, &protoReq)
+	msg, err := server.FindIECidrSgRules(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SecGroupService_FindIESgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindIESgSgRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -390,12 +318,12 @@ func request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.FindSgSgRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.FindIESgSgRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SecGroupService_FindIESgSgRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindIESgSgRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -403,7 +331,7 @@ func local_request_SecGroupService_FindSgSgRules_0(ctx context.Context, marshale
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.FindSgSgRules(ctx, &protoReq)
+	msg, err := server.FindIESgSgRules(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -434,7 +362,7 @@ func local_request_SecGroupService_FindIESgSgIcmpRules_0(ctx context.Context, ma
 
 }
 
-func request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SecGroupService_FindIECidrSgIcmpRules_0(ctx context.Context, marshaler runtime.Marshaler, client SecGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindIECidrSgIcmpRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -442,12 +370,12 @@ func request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, marshale
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.FindCidrSgIcmpRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.FindIECidrSgIcmpRules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SecGroupService_FindIECidrSgIcmpRules_0(ctx context.Context, marshaler runtime.Marshaler, server SecGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FindIECidrSgIcmpRulesReq
 	var metadata runtime.ServerMetadata
 
@@ -455,7 +383,7 @@ func local_request_SecGroupService_FindCidrSgIcmpRules_0(ctx context.Context, ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.FindCidrSgIcmpRules(ctx, &protoReq)
+	msg, err := server.FindIECidrSgIcmpRules(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -643,7 +571,7 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("GET", pattern_SecGroupService_GetRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindSgSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -651,12 +579,12 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/GetRules", runtime.WithHTTPPathPattern("/v2/sg-from/{sg_from}/to/{sg_to}/rules"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindSgSgRules", runtime.WithHTTPPathPattern("/v2/sg-sg-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_SecGroupService_GetRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SecGroupService_FindSgSgRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -664,32 +592,7 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_SecGroupService_GetRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("POST", pattern_SecGroupService_FindRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindRules", runtime.WithHTTPPathPattern("/v2/sg-sg-rules"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_SecGroupService_FindRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_SecGroupService_FindRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindSgSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -768,7 +671,7 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("POST", pattern_SecGroupService_FindCidrSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindIECidrSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -776,12 +679,12 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindCidrSgRules", runtime.WithHTTPPathPattern("/v2/cidr-sg-rules"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindIECidrSgRules", runtime.WithHTTPPathPattern("/v2/ie-cidr-sg-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_SecGroupService_FindCidrSgRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SecGroupService_FindIECidrSgRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -789,11 +692,11 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_SecGroupService_FindCidrSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindIECidrSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_SecGroupService_FindSgSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindIESgSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -801,12 +704,12 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindSgSgRules", runtime.WithHTTPPathPattern("/v2/ie-sg-sg-rules"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindIESgSgRules", runtime.WithHTTPPathPattern("/v2/ie-sg-sg-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_SecGroupService_FindSgSgRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SecGroupService_FindIESgSgRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -814,7 +717,7 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_SecGroupService_FindSgSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindIESgSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -843,7 +746,7 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("POST", pattern_SecGroupService_FindCidrSgIcmpRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindIECidrSgIcmpRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -851,12 +754,12 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindCidrSgIcmpRules", runtime.WithHTTPPathPattern("/v2/cidr-sg-icmp-rules"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindIECidrSgIcmpRules", runtime.WithHTTPPathPattern("/v2/ie-cidr-sg-icmp-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_SecGroupService_FindCidrSgIcmpRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SecGroupService_FindIECidrSgIcmpRules_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -864,7 +767,7 @@ func RegisterSecGroupServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 			return
 		}
 
-		forward_SecGroupService_FindCidrSgIcmpRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindIECidrSgIcmpRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1044,47 +947,25 @@ func RegisterSecGroupServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("GET", pattern_SecGroupService_GetRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindSgSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/GetRules", runtime.WithHTTPPathPattern("/v2/sg-from/{sg_from}/to/{sg_to}/rules"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindSgSgRules", runtime.WithHTTPPathPattern("/v2/sg-sg-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_SecGroupService_GetRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SecGroupService_FindSgSgRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_SecGroupService_GetRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("POST", pattern_SecGroupService_FindRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindRules", runtime.WithHTTPPathPattern("/v2/sg-sg-rules"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_SecGroupService_FindRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_SecGroupService_FindRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindSgSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1154,47 +1035,47 @@ func RegisterSecGroupServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("POST", pattern_SecGroupService_FindCidrSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindIECidrSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindCidrSgRules", runtime.WithHTTPPathPattern("/v2/cidr-sg-rules"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindIECidrSgRules", runtime.WithHTTPPathPattern("/v2/ie-cidr-sg-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_SecGroupService_FindCidrSgRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SecGroupService_FindIECidrSgRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_SecGroupService_FindCidrSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindIECidrSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_SecGroupService_FindSgSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindIESgSgRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindSgSgRules", runtime.WithHTTPPathPattern("/v2/ie-sg-sg-rules"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindIESgSgRules", runtime.WithHTTPPathPattern("/v2/ie-sg-sg-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_SecGroupService_FindSgSgRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SecGroupService_FindIESgSgRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_SecGroupService_FindSgSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindIESgSgRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1220,25 +1101,25 @@ func RegisterSecGroupServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 
 	})
 
-	mux.Handle("POST", pattern_SecGroupService_FindCidrSgIcmpRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SecGroupService_FindIECidrSgIcmpRules_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindCidrSgIcmpRules", runtime.WithHTTPPathPattern("/v2/cidr-sg-icmp-rules"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/hbf.v2.sgroups.SecGroupService/FindIECidrSgIcmpRules", runtime.WithHTTPPathPattern("/v2/ie-cidr-sg-icmp-rules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_SecGroupService_FindCidrSgIcmpRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SecGroupService_FindIECidrSgIcmpRules_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_SecGroupService_FindCidrSgIcmpRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SecGroupService_FindIECidrSgIcmpRules_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1278,9 +1159,7 @@ var (
 
 	pattern_SecGroupService_GetSgSubnets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "sg", "sg_name", "subnets"}, ""))
 
-	pattern_SecGroupService_GetRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v2", "sg-from", "sg_from", "to", "sg_to", "rules"}, ""))
-
-	pattern_SecGroupService_FindRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "sg-sg-rules"}, ""))
+	pattern_SecGroupService_FindSgSgRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "sg-sg-rules"}, ""))
 
 	pattern_SecGroupService_FindFqdnRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "fqdn-rules"}, ""))
 
@@ -1288,13 +1167,13 @@ var (
 
 	pattern_SecGroupService_FindSgSgIcmpRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "sg-sg-icmp-rules"}, ""))
 
-	pattern_SecGroupService_FindCidrSgRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "cidr-sg-rules"}, ""))
+	pattern_SecGroupService_FindIECidrSgRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "ie-cidr-sg-rules"}, ""))
 
-	pattern_SecGroupService_FindSgSgRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "ie-sg-sg-rules"}, ""))
+	pattern_SecGroupService_FindIESgSgRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "ie-sg-sg-rules"}, ""))
 
 	pattern_SecGroupService_FindIESgSgIcmpRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "ie-sg-sg-icmp-rules"}, ""))
 
-	pattern_SecGroupService_FindCidrSgIcmpRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "cidr-sg-icmp-rules"}, ""))
+	pattern_SecGroupService_FindIECidrSgIcmpRules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "ie-cidr-sg-icmp-rules"}, ""))
 
 	pattern_SecGroupService_GetSecGroupForAddress_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"v2", "address", "sg"}, ""))
 )
@@ -1310,9 +1189,7 @@ var (
 
 	forward_SecGroupService_GetSgSubnets_0 = runtime.ForwardResponseMessage
 
-	forward_SecGroupService_GetRules_0 = runtime.ForwardResponseMessage
-
-	forward_SecGroupService_FindRules_0 = runtime.ForwardResponseMessage
+	forward_SecGroupService_FindSgSgRules_0 = runtime.ForwardResponseMessage
 
 	forward_SecGroupService_FindFqdnRules_0 = runtime.ForwardResponseMessage
 
@@ -1320,13 +1197,13 @@ var (
 
 	forward_SecGroupService_FindSgSgIcmpRules_0 = runtime.ForwardResponseMessage
 
-	forward_SecGroupService_FindCidrSgRules_0 = runtime.ForwardResponseMessage
+	forward_SecGroupService_FindIECidrSgRules_0 = runtime.ForwardResponseMessage
 
-	forward_SecGroupService_FindSgSgRules_0 = runtime.ForwardResponseMessage
+	forward_SecGroupService_FindIESgSgRules_0 = runtime.ForwardResponseMessage
 
 	forward_SecGroupService_FindIESgSgIcmpRules_0 = runtime.ForwardResponseMessage
 
-	forward_SecGroupService_FindCidrSgIcmpRules_0 = runtime.ForwardResponseMessage
+	forward_SecGroupService_FindIECidrSgIcmpRules_0 = runtime.ForwardResponseMessage
 
 	forward_SecGroupService_GetSecGroupForAddress_0 = runtime.ForwardResponseMessage
 )
