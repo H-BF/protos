@@ -1,9 +1,10 @@
-module github.com/H-BF/protos
+module github.com/H-BF/protos/v2
 
 go 1.20
 
 require (
 	connectrpc.com/connect v1.16.1
+	github.com/H-BF/protos v0.0.0-00000000000000-000000000000
 	github.com/go-openapi/spec v0.21.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/pkg/errors v0.9.1
@@ -13,6 +14,8 @@ require (
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 	google.golang.org/protobuf v1.33.0
 )
+
+replace github.com/H-BF/protos => ./
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
